@@ -12,7 +12,7 @@ export class ListComponent implements OnInit {
 
   constructor(private _http: HttpService) { 
     this.brews = [];
-    //The "= {};" initializes a new object. The "= [];" initializes a new iterable list
+    //The "= {};" initializes a new object. SThe "= [];" initializes a new iterable list
   }
 
   ngOnInit(): void {

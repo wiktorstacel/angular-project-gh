@@ -1,0 +1,34 @@
+
+
+<h1>Welcome!</h1>
+
+<div class="play-container">
+    <p>Klinąłeś <span (click)="countClick()">przycisk</span> {{ clickCounter }} times.</p>
+</div>
+
+<div class="play-container">
+    <p>
+        <input type="text" [(ngModel)]="name">
+        <br>
+        <strong>Powiedziałeś: </strong> {{ name }}
+    </p>
+</div>
+
+<!-- [style.background-color]="clickCounter > 4 ? 'yellow' : 'lightgrey'" -->
+
+<!-- [ngStyle]="{
+        'background-color': clickCounter > 4 ? 'yellow' : 'lightgrey',
+        'border':           clickCounter > 4 ? '4px solid black' : 'none'
+     }" -->
+
+<!-- [class.active]="clickCounter > 4" -->
+
+<div class="play-container" [ngClass]="setClasses()">
+    <ng-template [ngIf]="clickCounter > 4" [ngIfElse]="none">
+        <p>Licznik jest <strong>WIĘKSZY</strong> jak 4.</p>
+    </ng-template>
+    
+    <ng-template #none>
+        <p>Licznik jest <strong>NIE WIĘKSZY</strong> jak 4.</p>
+    </ng-template>
+</div>

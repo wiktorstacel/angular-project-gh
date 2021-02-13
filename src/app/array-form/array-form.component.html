@@ -1,1 +1,37 @@
-<p>array-form works!</p>
+<h1>Nested Form</h1>
+
+<form [formGroup]="myForm">
+    
+    Value: {{ myForm.value | json }}
+    
+    <hr>
+    
+    <mat-form-field class="full">
+        <input matInput placeholder="e-mail" formControlName="email">
+    </mat-form-field> 
+               
+    <div formArrayName="phones">
+      
+      <div *ngFor="let phone of phoneForms.controls; let i=index" [formGroupName]="i">
+        
+        <mat-form-field>
+            <input placeholder="area" matInput formControlName="area">
+        </mat-form-field>  
+        
+        <mat-form-field>
+            <input placeholder="prefix" matInput formControlName="prefix">
+        </mat-form-field> 
+        
+        <mat-form-field>
+            <input placeholder="line" matInput formControlName="line">
+        </mat-form-field>
+        
+        <button mat-raised-button color="warn" (click)="deletePhone(i)">Delete</button>
+        
+      </div>
+      
+    </div>
+    
+    <button mat-raised-button color="primary" (click)="addPhone()">Add Phone Number</button>
+    
+</form>

@@ -20,17 +20,17 @@ export class NestedFormComponent implements OnInit {
 
   ngOnInit(): void {
       
-      const phone = this.fb.group({
-          area: [],
-          prefix: [],
-          line: [],
-      })
-      
-      this.myForm = this.fb.group({
-          email: '',
-          homePhone: phone,
-          cellPhone: phone
-      })
+    const phone = this.fb.group({
+      area: [],
+      prefix: [],
+      line: [],
+    })
+
+    this.myForm = this.fb.group({
+      email: '',
+      homePhone: phone,
+      cellPhone: phone
+    })
   }
 
 }

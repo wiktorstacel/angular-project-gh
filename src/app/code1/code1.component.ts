@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { User } from './user';
 
 @Component({
   selector: 'app-code1',
@@ -8,6 +9,8 @@ import { Component, OnInit } from '@angular/core';
 export class Code1Component implements OnInit {
   
   topics = ['Angular', 'React', 'Vue'];
+  
+  userModel = new User('Rob', 'rob@test.com', 453453453, '', 'morning', true);
 
   constructor() { }
 

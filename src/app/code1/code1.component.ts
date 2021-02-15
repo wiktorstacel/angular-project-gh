@@ -9,12 +9,21 @@ import { User } from './user';
 export class Code1Component implements OnInit {
   
   topics = ['Angular', 'React', 'Vue'];
+  topicHasError = true;
   
-  userModel = new User('', 'rob@test.com', 453453453, '', 'morning', true);
+  userModel = new User('', 'rob@test.com', 453453453, 'default', 'morning', true);
 
   constructor() { }
 
   ngOnInit(): void {
+  }
+  
+  validateTopic(value: string) {
+    if(value === 'default') {
+      this.topicHasError = true;
+    } else {
+      this.topicHasError = false;
+    }
   }
 
 }

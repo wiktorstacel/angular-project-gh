@@ -10,7 +10,7 @@ export class Code1Component implements OnInit {
   
   topics = ['Angular', 'React', 'Vue'];
   
-  userModel = new User('Rob', 'rob@test.com', 453453453, '', 'morning', true);
+  userModel = new User('', 'rob@test.com', 453453453, '', 'morning', true);
 
   constructor() { }
 

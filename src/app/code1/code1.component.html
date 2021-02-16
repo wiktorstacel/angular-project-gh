@@ -1,10 +1,11 @@
 <div class="container-fluid mb-5">
   <h1>Bootcamp Enrollment Form</h1>
-  <form #userForm="ngForm">
+  <form #userForm="ngForm" (ngSubmit)="onSubmit()" novalidate>
     
     <!--{{ userForm.value | json }}
     <hr />
     {{ userModel | json }}-->
+    {{ userForm.form.valid }}
     <div class="form-group">
       <label>Name</label>
       <input type="text" required #name="ngModel" [class.is-invalid]="name.invalid && name.touched" class="form-control" name="userName" [(ngModel)]="userModel.name">
@@ -62,7 +63,7 @@
       <label class="form-check-label">Send me promotional offers</label>      
     </div>
     
-    <button class="btn btn-primary" type="submit">Submit form</button>
+    <button *ngIf="!submitted" [disabled]="userForm.form.invalid || topicHasError" class="btn btn-primary" type="submit">Submit form</button>
       
   </form>
 </div>

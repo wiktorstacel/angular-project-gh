@@ -9,6 +9,7 @@ import { ListComponent } from './list/list.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { HttpClientModule } from '@angular/common/http';
+import { HttpService } from './http.service'; //for needs of Angular+PHP server data exchange
 import { ArrayFormComponent } from './array-form/array-form.component';
 import { BasicFormComponent } from './basic-form/basic-form.component';
 import { NestedFormComponent } from './nested-form/nested-form.component';
@@ -21,6 +22,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatChipsModule } from '@angular/material/chips';
 import { Code1Component } from './code1/code1.component';
+import { OfferComponent } from './offer/offer.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +34,8 @@ import { Code1Component } from './code1/code1.component';
     NestedFormComponent,
     SubmitFormComponent,
     ValidFormComponent,
-    Code1Component
+    Code1Component,
+    OfferComponent
   ],
   imports: [
     BrowserModule,
@@ -47,7 +50,9 @@ import { Code1Component } from './code1/code1.component';
     MatCheckboxModule,
     MatChipsModule
   ],
-  providers: [],
+  providers: [
+    HttpService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

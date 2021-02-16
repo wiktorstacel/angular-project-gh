@@ -1,0 +1,10 @@
+<div class="container-fluid mb-5">
+  <h1>Offer editing</h1>
+
+<input type="text" #id placeholder="what id?" class="form-control">
+
+<br><button (click)="onSend(id.value)" class="btn btn-primary">Send Request</button>
+<hr>
+{{ response | json }}
+
+</div>

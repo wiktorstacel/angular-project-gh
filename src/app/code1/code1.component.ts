@@ -12,6 +12,7 @@ export class Code1Component implements OnInit {
   topics = ['Angular', 'React', 'Vue'];
   topicHasError = true;
   submitted = false;
+  errorMsg = "";
   
   userModel = new User('', 'rob@test.com', 453453453, 'default', 'morning', true);
 
@@ -33,7 +34,7 @@ export class Code1Component implements OnInit {
     this.submitted = true;
     this._EnrollmentService.enroll(this.userModel).subscribe(
         data => console.log('Success!', data),
-        error => console.log('Error', error)
+        error => this.errorMsg = error.statusText
       )
   }
 

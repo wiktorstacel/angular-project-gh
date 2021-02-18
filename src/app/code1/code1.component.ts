@@ -14,7 +14,7 @@ export class Code1Component implements OnInit {
   submitted = false;
   errorMsg = "";
   
-  userModel = new User('', 'rob@test.com', 453453453, 'default', 'morning', true);
+  userModel = new User('', 'rob@test.com', 4534534535, 'default', 'morning', true);
 
   constructor(private _EnrollmentService: EnrollmentService) { }
 
@@ -29,13 +29,13 @@ export class Code1Component implements OnInit {
     }
   }
   
-  onSubmit() {
-    //console.log(this.userModel);
-    this.submitted = true;
+  onSubmit(userForm: any) {
+    console.log(userForm);
+    /*this.submitted = true;
     this._EnrollmentService.enroll(this.userModel).subscribe(
         data => console.log('Success!', data),
         error => this.errorMsg = error.statusText
-      )
+      )*/
   }
 
 }

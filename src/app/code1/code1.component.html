@@ -1,15 +1,15 @@
 <div class="container-fluid mb-5">
   <h1>Bootcamp Enrollment Form</h1>
-  <div class="alert alert-danger" ng-if="errorMsg">
+  <div class="alert alert-danger" *ngIf="errorMsg">
     {{ errorMsg }}
   </div>
   
-  <form #userForm="ngForm" (ngSubmit)="onSubmit()" novalidate>
+  <form #userForm="ngForm" (ngSubmit)="onSubmit(userForm)" novalidate>
     
     <!--{{ userForm.value | json }}
     <hr />
     {{ userModel | json }}-->
-    {{ userForm.form.valid }}
+    Valid: {{ userForm.form.valid }}
     <div class="form-group">
       <label>Name</label>
       <input type="text" required #name="ngModel" [class.is-invalid]="name.invalid && name.touched" class="form-control" name="userName" [(ngModel)]="userModel.name">

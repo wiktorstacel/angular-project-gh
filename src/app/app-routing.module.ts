@@ -9,6 +9,7 @@ import { ArrayFormComponent } from './array-form/array-form.component';
 import { ValidFormComponent } from './valid-form/valid-form.component';
 import { Code1Component } from './code1/code1.component';
 import { OfferComponent } from './offer/offer.component';
+import { ReactiveComponent } from './reactive/reactive.component';
 
 const routes: Routes = [
     { path: '', component: HomeComponent },
@@ -18,7 +19,8 @@ const routes: Routes = [
     { path: 'array', component: ArrayFormComponent },
     { path: 'valid', component: ValidFormComponent },
     { path: 'code1', component: Code1Component },
-    { path: 'offer', component: OfferComponent }
+    { path: 'offer', component: OfferComponent },
+    { path: 'reactive', component: ReactiveComponent }
 ];
 
 @NgModule({

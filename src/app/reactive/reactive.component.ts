@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms'
+//import { FormGroup, FormControl } from '@angular/forms'
+import { FormBuilder, Validators } from '@angular/forms'
+import { forbiddenNameValidator } from './shared/user-name.validators'
 
 @Component({
   selector: 'app-reactive',
@@ -8,7 +10,7 @@ import { FormGroup, FormControl } from '@angular/forms'
 })
 export class ReactiveComponent implements OnInit {
 
-  registrationForm = new FormGroup({
+  /*registrationForm = new FormGroup({
     userName: new FormControl('Vishwas'),
     password: new FormControl(''),
     confirmPassword: new FormControl(''),
@@ -17,11 +19,35 @@ export class ReactiveComponent implements OnInit {
       state: new FormControl(''),
       postalCode: new FormControl('')
     })
-  });
+  });*/
 
-  constructor() { }
+  constructor(private fb: FormBuilder) { }
+  
+  registrationForm = this.fb.group({
+    userName: ['', [Validators.required, Validators.minLength(3), forbiddenNameValidator(/password/)]],
+    password: [''],
+    confirmPassword: [''],
+    address: this.fb.group({
+      city: [''],
+      state: [''],
+      postalCode: ['']
+    })
+  })
 
   ngOnInit(): void {
+  }
+  
+  loadApiData() {
+    this.registrationForm.setValue({ //patchValue - not all fields have to be given
+      userName: 'Bruce',
+      password: 'test',
+      confirmPassword: 'test',
+      address: {
+        city: 'City',
+        state: 'State',
+        postalCode: '123456'
+      }
+    })
   }
 
 }

@@ -4,7 +4,16 @@
     {{ registrationForm.value | json }}
     <div class="form-group">
       <label>Username</label>
-      <input formControlName="userName" type="text" class="form-control" >
+      <!-- ? It notifies the template that a value that needs to be displayed may not be available yet, and allow the template to continue to be rendered and that value filled in at a later time.-->
+      <input [class.is-invalid]="registrationForm.get('userName')?.invalid && 
+                                 registrationForm.get('userName')?.touched" formControlName="userName" type="text" class="form-control" >
+      <!--<small [class.d-none]="registrationForm.get('userName')?.valid || 
+                             registrationForm.get('userName')?.untouched" class="text-danger">Username is required</small>-->
+      <div *ngIf="registrationForm.get('userName')?.invalid && registrationForm.get('userName')?.touched">
+        <small *ngIf="registrationForm.get('userName')?.errors?.required" class="text-danger">Username is required</small>
+        <small *ngIf="registrationForm.get('userName')?.errors?.minlength" class="text-danger">Username must be at least 3 characters</small>
+        <small *ngIf="registrationForm.get('userName')?.errors?.forbiddenName" class="text-danger">{{registrationForm.get('userName')?.errors?.forbiddenName.value}} Username not allowed</small>
+      </div>
     </div>
     
     <div class="form-group">
@@ -36,7 +45,9 @@
       
     </div>
     
-    <br><button class="btn btn-primary" type="submit">Register</button>
+    <br>
+    <button class="btn btn-primary" type="submit">Register</button>
+    <button (click)="loadApiData()" class="btn btn-secondary ml-2" type="button">Load API Data</button>
     
   </form>
 </div>

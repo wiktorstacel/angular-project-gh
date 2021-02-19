@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 //import { FormGroup, FormControl } from '@angular/forms'
-import { FormBuilder, FormGroup, Validators } from '@angular/forms'
+import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms'
 import { forbiddenNameValidator } from './shared/user-name.validators'
 import { PasswordValidator } from './shared/password.validator'
+import { RegistrationService } from './registration.service'
 
 @Component({
   selector: 'app-reactive',
@@ -23,8 +24,20 @@ export class ReactiveComponent implements OnInit {
   });*/
   
   registrationForm: FormGroup;
+  
+  get alternateEmails() {
+    return this.registrationForm.get('alternateEmails') as FormArray;
+  }
+  
+  adAlternateEmail() {
+    this.alternateEmails.push(this.fb.control(''));
+  }
+  
+  deleteAlternateEmail(i: number) {
+    this.alternateEmails.removeAt(i)
+  }
 
-  constructor(private fb: FormBuilder) { 
+  constructor(private fb: FormBuilder, private _registrationService: RegistrationService) { 
     this.registrationForm = fb.group({});
   }
 
@@ -39,7 +52,8 @@ export class ReactiveComponent implements OnInit {
       city: [''],
       state: [''],
       postalCode: ['']
-    })
+    }),
+    alternateEmails: this.fb.array([])
   }, {validator: PasswordValidator});
   
   this.registrationForm.get('subscribe_ch')?.valueChanges.subscribe(checkedValue => {
@@ -64,6 +78,14 @@ export class ReactiveComponent implements OnInit {
         postalCode: '123456'
       }
     })
+  }
+  
+  onSubmit() {
+    console.log(this.registrationForm.value);
+    this._registrationService.register(this.registrationForm.value).subscribe(
+      response => console.log('Success!', response),
+      error => console.log('Error', error)
+    );
   }
 
 }

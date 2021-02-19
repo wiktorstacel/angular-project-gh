@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 //import { FormGroup, FormControl } from '@angular/forms'
-import { FormBuilder, Validators } from '@angular/forms'
+import { FormBuilder, FormGroup, Validators } from '@angular/forms'
 import { forbiddenNameValidator } from './shared/user-name.validators'
+import { PasswordValidator } from './shared/password.validator'
 
 @Component({
   selector: 'app-reactive',
@@ -20,11 +21,18 @@ export class ReactiveComponent implements OnInit {
       postalCode: new FormControl('')
     })
   });*/
-
-  constructor(private fb: FormBuilder) { }
   
-  registrationForm = this.fb.group({
+  registrationForm: FormGroup;
+
+  constructor(private fb: FormBuilder) { 
+    this.registrationForm = fb.group({});
+  }
+
+  ngOnInit(): void {
+    this.registrationForm = this.fb.group({
     userName: ['', [Validators.required, Validators.minLength(3), forbiddenNameValidator(/password/)]],
+    email: [''],
+    subscribe_ch: [false],
     password: [''],
     confirmPassword: [''],
     address: this.fb.group({
@@ -32,9 +40,17 @@ export class ReactiveComponent implements OnInit {
       state: [''],
       postalCode: ['']
     })
-  })
-
-  ngOnInit(): void {
+  }, {validator: PasswordValidator});
+  
+  this.registrationForm.get('subscribe_ch')?.valueChanges.subscribe(checkedValue => {
+    const email = this.registrationForm.get('email');
+    if(checkedValue) {
+      email?.setValidators(Validators.required);
+    } else {
+      email?.clearValidators();
+    }
+    email?.updateValueAndValidity();
+    });
   }
   
   loadApiData() {

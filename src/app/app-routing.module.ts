@@ -9,6 +9,8 @@ import { ArrayFormComponent } from './array-form/array-form.component';
 import { ValidFormComponent } from './valid-form/valid-form.component';
 import { DepartmentListComponent } from './department-list/department-list.component';
 import { DepartmentDetailComponent } from './department-detail/department-detail.component';
+import { DepartmentOverviewComponent } from './department-overview/department-overview.component';
+import { DepartmentContactComponent } from './department-contact/department-contact.component';
 import { Code1Component } from './code1/code1.component';
 import { OfferComponent } from './offer/offer.component';
 import { ReactiveComponent } from './reactive/reactive.component';
@@ -22,7 +24,14 @@ const routes: Routes = [
     { path: 'array', component: ArrayFormComponent },
     { path: 'valid', component: ValidFormComponent },
     { path: 'departments', component: DepartmentListComponent },
-    { path: 'departments/:id', component: DepartmentDetailComponent},
+    { 
+      path: 'departments/:id', 
+      component: DepartmentDetailComponent,
+      children: [
+        { path: 'overview', component: DepartmentOverviewComponent},
+        { path: 'contact', component: DepartmentContactComponent}
+      ]
+      },
     { path: 'code1', component: Code1Component },
     { path: 'offer', component: OfferComponent },
     { path: 'reactive', component: ReactiveComponent },
@@ -46,5 +55,7 @@ export const routingComponents = [
   Code1Component,
   OfferComponent,
   ReactiveComponent,
-  PageNotFoundComponent
+  PageNotFoundComponent,
+  DepartmentOverviewComponent,
+  DepartmentContactComponent
   ]

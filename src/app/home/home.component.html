@@ -32,3 +32,11 @@
         <p>Licznik jest <strong>NIE WIĘKSZY</strong> jak 4.</p>
     </ng-template>
 </div>
+
+<h3>Employees list</h3>
+<h5>{{errorMsg}}</h5>
+<div class="play-container">
+  <ul *ngFor="let employee of employees">
+    <li>{{employee.id}}. {{employee.name}} - {{employee.age}}</li>
+  </ul>
+</div>

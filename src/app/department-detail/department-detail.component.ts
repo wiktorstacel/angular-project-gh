@@ -7,14 +7,14 @@ import { ActivatedRoute, Router, ParamMap } from '@angular/router';
     <h3>You've selected department id = {{departmentId}}</h3>
     
     <p>
-      <button (click)="showOvierview()">Overview</button>
-      <button (click)="showContact()">Contact</button>
+      <button (click)="showOvierview()" class="btn btn-primary" >Overview</button>
+      <button (click)="showContact()" class="btn btn-primary btn-space">Contact</button>
     </p>
     <router-outlet></router-outlet>
     
     <p>
-    <button (click)="goPrevious()">Previous</button>
-    <button (click)="goNext()"> Next</button>
+    <button (click)="goPrevious()" class="btn btn-success" >Previous</button>
+    <button (click)="goNext()" class="btn btn-success btn-space"> Next</button>
     </p>
     
     <div>
@@ -22,6 +22,9 @@ import { ActivatedRoute, Router, ParamMap } from '@angular/router';
     </div>
   `,
   styles: [
+  `button.btn-space{
+    margin-left: 5px;
+  }`
   ]
 })
 export class DepartmentDetailComponent implements OnInit {

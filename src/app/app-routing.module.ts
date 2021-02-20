@@ -50,12 +50,12 @@ export const routingComponents = [
   NestedFormComponent,
   ArrayFormComponent,
   ValidFormComponent,
-  DepartmentListComponent,
-  DepartmentDetailComponent,
   Code1Component,
   OfferComponent,
   ReactiveComponent,
   PageNotFoundComponent,
+  DepartmentListComponent,
+  DepartmentDetailComponent,
   DepartmentOverviewComponent,
   DepartmentContactComponent
   ]

@@ -8,7 +8,24 @@
 </mat-toolbar>
 
 
+<div class="main-container">
+    
+  <form [formGroup]="searchOfferForm" (ngSubmit)="onSubmitShowOffers()">
+    <div class="form-check mb-3">
+      <input class="form-check-input" type="checkbox" formControlName="p6" /><!--  [(ngModel)]="userModel.subscribe" -->
+      <label class="form-check-label">Aktualne</label>      
+    </div>
 
+    <div class="form-check mb-3">
+      <input class="form-check-input" type="checkbox" formControlName="p7" /><!--  [(ngModel)]="userModel.subscribe" -->
+      <label class="form-check-label">Nieaktualne</label>      
+    </div>
+
+    <br><button class="btn btn-primary" type="submit">Pokaż</button>
+    
+    
+  </form>
+</div>
 
 <hr>
 
@@ -28,14 +45,11 @@ oferty z backend:<br>
       <label class="form-check-label">Nieaktualne</label>      
     </div>
 
-    <br><button class="btn btn-primary" (click)="onSendShowOffers(p6)">Pokaż</button>
+    <br><button class="btn btn-primary" (click)="onSendShowOffers(p6.value)">Pokaż</button>
 
 </div>
 
 <hr>
-
-oferty z backend:<br>
-{{ response | json }}
 
 <h1>Welcome!</h1>
 

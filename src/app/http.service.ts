@@ -25,4 +25,8 @@ export class HttpService {
   onSendShowOffers(fromData: FormData):Observable<any>{
     return this.http.post<any>('/api/api/show_offers.php', fromData)
   }
+  
+  onSubmitShowOffers(fromData: FormData):Observable<any>{
+    return this.http.post<any>('/api/api/show_offers.php', fromData)
+  }
 }

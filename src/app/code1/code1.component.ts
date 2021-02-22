@@ -30,7 +30,7 @@ export class Code1Component implements OnInit {
   }
   
   onSubmit(userForm: any) {
-    console.log(userForm);
+    console.log(userForm);//console.log(this.userModel); - send only values not all ngmodel
     /*this.submitted = true;
     this._EnrollmentService.enroll(this.userModel).subscribe(
         data => console.log('Success!', data),

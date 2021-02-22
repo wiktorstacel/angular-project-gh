@@ -1,4 +1,41 @@
+<br><br>
+<mat-toolbar color="primary">
+  <div>Menu</div>
+  <!--<span>Wyszukaj</span>
+  <span>Wprowadź</span>
+  <span>Transakcje</span>
+  <span>Agenci</span>-->
+</mat-toolbar>
 
+
+
+
+<hr>
+
+oferty z backend:<br>
+{{ response | json }}
+
+
+<div class="main-container">
+    
+    <div class="form-check mb-3">
+      <input class="form-check-input" #p6 type="checkbox" name="p6" /><!--  [(ngModel)]="userModel.subscribe" -->
+      <label class="form-check-label">Aktualne</label>      
+    </div>
+
+    <div class="form-check mb-3">
+      <input class="form-check-input" #p7 type="checkbox" name="p7" /><!--  [(ngModel)]="userModel.subscribe" -->
+      <label class="form-check-label">Nieaktualne</label>      
+    </div>
+
+    <br><button class="btn btn-primary" (click)="onSendShowOffers(p6)">Pokaż</button>
+
+</div>
+
+<hr>
+
+oferty z backend:<br>
+{{ response | json }}
 
 <h1>Welcome!</h1>
 

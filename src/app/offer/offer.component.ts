@@ -15,6 +15,10 @@ export class OfferComponent implements OnInit {
   ngOnInit(): void {
   }
   
+  //Angular 9+ you can add headers and params directly without the key-value notion:
+  //const headers = new HttpHeaders().append('header', 'value');
+  //const params = new HttpParams().append('param', 'value');
+  //this.http.get('url', {headers, params});
   onSend(id: string) { //How to change to number?
     const formData : FormData = new FormData();
     formData.append('id', id);

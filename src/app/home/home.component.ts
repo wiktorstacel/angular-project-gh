@@ -25,6 +25,9 @@ export class HomeComponent implements OnInit {
   public employees: Array<{id: number, name: string, age: number}> = []; //Array<{id: number, name: string, age: number}> //Array<Object>
   public errorMsg: any;
   public offerTypes: Array<{rodzaj_id: number, nazwa: string}> = [];
+  public voivodeShips: Array<{wojewodztwo_id: number, nazwa: string}> = [];
+  public towns: Array<{miejscowosc_id: number, nazwa: string, wojewodztwo_id: number}> = [];
+  public townsAllMemory: Array<{miejscowosc_id: number, nazwa: string, wojewodztwo_id: number}> = [];
 
   constructor(
                 private _employeeService: EmployeeService, 
@@ -37,9 +40,11 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     this.searchOfferForm = this.fb.group({
-    p1: [''],
-    p4: [''],
-    p5: [''],
+    p1: [null],
+    p2: [null],
+    p3: [null],
+    p4: [],
+    p5: [],
     p6: [true],
     p7: [false]
     });
@@ -49,12 +54,22 @@ export class HomeComponent implements OnInit {
     this._employeeService.getEmployees().subscribe(
         data => this.employees = data,
         error => this.errorMsg = error
-      );
+    );
     
     this._selectService.getOfferTypes().subscribe(
         data => this.offerTypes = data,
         error => this.errorMsg = error
-      );   
+    );
+      
+    this._selectService.getVoivodeships().subscribe(
+        data => this.voivodeShips = data,
+        error => this.errorMsg = error
+    ); 
+    
+    this._selectService.getTowns().subscribe(
+        data => {this.towns = data, this.townsAllMemory = data},
+        error => this.errorMsg = error
+    );  
   }
   
   countClick(){
@@ -108,5 +123,27 @@ export class HomeComponent implements OnInit {
       }
     )
   }
+  
+  onVoivodeship(wojewodztwo_id: number) {
+    if(wojewodztwo_id === 0)
+    {
+      this.towns = this.townsAllMemory;
+      this.searchOfferForm.controls['p3'].reset();
+    }
+    else
+    {
+      this.towns = [];
+      alert(this.townsAllMemory);
+      for(let i=0; i<this.townsAllMemory.length; i++)
+      {
+        if(this.townsAllMemory[i].wojewodztwo_id === wojewodztwo_id)
+        {
+          this.towns.push(this.townsAllMemory[i]);
+        }
+      }
+    }
+    this.onSubmitShowOffers();
+  }
+  
 
 }

@@ -12,30 +12,47 @@
       
   <form [formGroup]="searchOfferForm" (ngSubmit)="onSubmitShowOffers()">
     
-    <mat-form-field class="selectType1">
-        <mat-select placeholder="Rodzaj oferty" formControlName="p1">
+    <mat-form-field class="selectType1" >
+        <mat-select placeholder="Rodzaj oferty" formControlName="p1" (selectionChange)="onSubmitShowOffers()">
           <mat-option [value]="0">Wszystkie</mat-option>
           <mat-option *ngFor="let offerType of offerTypes;"  [value]="offerType.rodzaj_id">{{ offerType.nazwa }}</mat-option>
         </mat-select>    
     </mat-form-field>
     
     <div class="container-checkboxes">
-      <mat-checkbox color="primary" formControlName="p6" class="checkboxActual">
+      <mat-checkbox color="primary" formControlName="p6" class="checkboxActual" (change)="onSubmitShowOffers()">
         Aktualne
       </mat-checkbox>
 
-      <mat-checkbox color="primary" formControlName="p7" class="checkboxNoactual">
+      <mat-checkbox color="primary" formControlName="p7" class="checkboxNoactual" (change)="onSubmitShowOffers()">
         Niektualne
       </mat-checkbox>
     </div>
     
+        
+    <br>
+    <mat-form-field class="selectType1" >
+        <mat-select placeholder="Województwo" formControlName="p2" #p2 (selectionChange)="onVoivodeship(p2.value)">
+          <mat-option [value]="0">Wszystkie</mat-option>
+          <mat-option *ngFor="let voivodeShip of voivodeShips;"  [value]="voivodeShip.wojewodztwo_id">{{ voivodeShip.nazwa }}</mat-option>
+        </mat-select>    
+    </mat-form-field>
+    
+    <br>
+    <mat-form-field class="selectType1" >
+        <mat-select placeholder="Miasto" formControlName="p3" (selectionChange)="onSubmitShowOffers()">
+          <mat-option [value]="0">Wszystkie</mat-option>
+          <mat-option *ngFor="let town of towns;"  [value]="town.miejscowosc_id">{{ town.nazwa }}</mat-option>
+        </mat-select>    
+    </mat-form-field>
+    
     <br>
     <mat-form-field class="inputPriceMin">
-    <input matInput placeholder="Cena min." formControlName="p4">
+    <input matInput type="number" placeholder="Cena min." formControlName="p4" (change)="onSubmitShowOffers()">
     </mat-form-field>
 
     <mat-form-field class="inputPriceMax">
-    <input matInput placeholder="Cena max." formControlName="p5">
+    <input matInput type="number" placeholder="Cena max." formControlName="p5" (change)="onSubmitShowOffers()">
     </mat-form-field>
 
     <br>

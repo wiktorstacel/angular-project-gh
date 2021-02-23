@@ -18,7 +18,7 @@ span {
 }
 
 .main-container {
-    padding: 3em;
+    padding: 1em 3em;
     border: 1px solid lightgray;
     margin-bottom: 1em;
 }
@@ -31,3 +31,35 @@ span {
 .notactive {
     background-color: lightgray;
 }
+
+.selectType1{
+   width:240px;
+ }
+
+.inputPriceMin{
+   width:100px;
+   margin-right:40px;
+ } 
+ 
+.inputPriceMax{
+   width:100px;
+ }  
+ 
+ .checkboxActual{
+   margin-right:36px;
+   
+ }
+ 
+  .checkboxNoactual{
+   
+ }
+ 
+ .container-checkboxes{
+   float:right;
+   margin: 20px 0 0 0;
+   padding: 0;
+ }
+ 
+ .buttonSearch{
+   
+ }

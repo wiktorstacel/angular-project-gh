@@ -1,33 +1,49 @@
-<br><br>
-<mat-toolbar color="primary">
+
+<!--<mat-toolbar color="primary">
   <div>Menu</div>
   <!--<span>Wyszukaj</span>
   <span>Wprowadź</span>
   <span>Transakcje</span>
-  <span>Agenci</span>-->
-</mat-toolbar>
+  <span>Agenci</span>
+</mat-toolbar>-->
 
-
+<br>
 <div class="main-container">
-    
+      
   <form [formGroup]="searchOfferForm" (ngSubmit)="onSubmitShowOffers()">
-    <div class="form-check mb-3">
-      <input class="form-check-input" type="checkbox" formControlName="p6" /><!--  [(ngModel)]="userModel.subscribe" -->
-      <label class="form-check-label">Aktualne</label>      
-    </div>
+    
+    <mat-form-field class="selectType1">
+        <mat-select placeholder="Rodzaj oferty" formControlName="p1">
+          <mat-option [value]="0">Wszystkie</mat-option>
+          <mat-option *ngFor="let offerType of offerTypes;"  [value]="offerType.rodzaj_id">{{ offerType.nazwa }}</mat-option>
+        </mat-select>    
+    </mat-form-field>
+    
+    <div class="container-checkboxes">
+      <mat-checkbox color="primary" formControlName="p6" class="checkboxActual">
+        Aktualne
+      </mat-checkbox>
 
-    <div class="form-check mb-3">
-      <input class="form-check-input" type="checkbox" formControlName="p7" /><!--  [(ngModel)]="userModel.subscribe" -->
-      <label class="form-check-label">Nieaktualne</label>      
+      <mat-checkbox color="primary" formControlName="p7" class="checkboxNoactual">
+        Niektualne
+      </mat-checkbox>
     </div>
+    
+    <br>
+    <mat-form-field class="inputPriceMin">
+    <input matInput placeholder="Cena min." formControlName="p4">
+    </mat-form-field>
 
-    <br><button class="btn btn-primary" type="submit">Pokaż</button>
+    <mat-form-field class="inputPriceMax">
+    <input matInput placeholder="Cena max." formControlName="p5">
+    </mat-form-field>
+
+    <br>
+    <button mat-raised-button class="buttonSearch" color="primary" type="submit">Pokaż</button>
     
     
   </form>
 </div>
-
-<hr>
 
 oferty z backend:<br>
 {{ response | json }}

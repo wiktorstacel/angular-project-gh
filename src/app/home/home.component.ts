@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { EmployeeService } from '../employee.service';
 import { IEmployee } from '../employee';
+import { SelectService } from './select.service';
+import { IOfferType } from './offer-type';
 import { HttpService } from '../http.service';
 //import { User } from './user'; - for purpose of usage ngModel - TDF
 import { FormBuilder, FormGroup } from '@angular/forms'
@@ -14,6 +16,7 @@ import { FormBuilder, FormGroup } from '@angular/forms'
 })
 export class HomeComponent implements OnInit {
   
+  //offerTypes = ['Dom', 'Mieszkanie', 'Biuro'];
   response = "";
   searchOfferForm: FormGroup;
     
@@ -21,15 +24,23 @@ export class HomeComponent implements OnInit {
   name: string = 'hey';
   public employees: Array<{id: number, name: string, age: number}> = []; //Array<{id: number, name: string, age: number}> //Array<Object>
   public errorMsg: any;
+  public offerTypes: Array<{rodzaj_id: number, nazwa: string}> = [];
 
-
-  constructor(private _employeeService: EmployeeService, private _http: HttpService, private fb: FormBuilder) { 
+  constructor(
+                private _employeeService: EmployeeService, 
+                private _http: HttpService, 
+                private fb: FormBuilder, 
+                private _selectService: SelectService
+              ) { 
     this.searchOfferForm = fb.group({});
   }
 
   ngOnInit(): void {
     this.searchOfferForm = this.fb.group({
-    p6: [false],
+    p1: [''],
+    p4: [''],
+    p5: [''],
+    p6: [true],
     p7: [false]
     });
     
@@ -39,6 +50,11 @@ export class HomeComponent implements OnInit {
         data => this.employees = data,
         error => this.errorMsg = error
       );
+    
+    this._selectService.getOfferTypes().subscribe(
+        data => this.offerTypes = data,
+        error => this.errorMsg = error
+      );   
   }
   
   countClick(){

@@ -7,7 +7,8 @@ import { FormBuilder, FormGroup } from '@angular/forms';
   styleUrls: ['./basic-form.component.scss']
 })
 export class BasicFormComponent implements OnInit {
-    
+ 
+  careers = ['Front-End', 'Back-End', 'Full-Stack'];
   myForm: FormGroup;
 
   constructor(private fb: FormBuilder) {

@@ -15,8 +15,10 @@
     </mat-form-field>
     
     <mat-form-field>
+      <!--<mat-label>Choose one</mat-label>-->
         <mat-select placeholder="career" formControlName="career">
-            
+          <mat-option value="0">All</mat-option>
+          <mat-option *ngFor="let career of careers; let i = index;"  [value]="i+1">{{ career }}</mat-option>
         </mat-select>    
     </mat-form-field>
     

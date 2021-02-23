@@ -9,6 +9,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { HttpService } from './http.service'; //for needs of Angular+PHP server data exchange
 import { EmployeeService } from './employee.service';
+import { SelectService } from './home/select.service';
 
 //MATERIAL
 import { MatInputModule } from '@angular/material/input';

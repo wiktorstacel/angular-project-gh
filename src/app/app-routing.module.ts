@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { HomeComponent } from './home/home.component';
+import { EnterOfferComponent } from './enter-offer/enter-offer.component';
 import { ListComponent } from './list/list.component';
 import { BasicFormComponent } from './basic-form/basic-form.component';
 import { NestedFormComponent } from './nested-form/nested-form.component';
@@ -18,8 +19,8 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 
 const routes: Routes = [
     { path: '', component: HomeComponent },
+    { path: 'enter-offer', component: EnterOfferComponent },
     { path: 'list', component: ListComponent },
-    { path: 'basic', component: BasicFormComponent },
     { path: 'nested', component: NestedFormComponent },
     { path: 'array', component: ArrayFormComponent },
     { path: 'valid', component: ValidFormComponent },
@@ -45,6 +46,7 @@ const routes: Routes = [
 export class AppRoutingModule { }
 export const routingComponents = [
   HomeComponent,
+  EnterOfferComponent,
   ListComponent,
   BasicFormComponent,
   NestedFormComponent,

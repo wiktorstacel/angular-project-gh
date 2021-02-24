@@ -3,6 +3,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { IOfferType } from './offer-type';
 import { IVoivodeship } from './voivodeship';
 import { ITown } from './town';
+import { IActiveOffer } from '../enter-offer/active_offer';
 import { Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { throwError } from 'rxjs';
@@ -15,6 +16,7 @@ export class SelectService {
   private _url1: string = '/api/api/offer_types.php';
   private _url2: string = '/api/api/voivodeships.php';
   private _url3: string = '/api/api/towns.php';
+  private _url4: string = '/api/api/active_offers.php';
 
   constructor(private http: HttpClient) { }
   
@@ -32,6 +34,11 @@ export class SelectService {
     return this.http.get<ITown[]>(this._url3)
       .pipe(catchError(this.errorHandler));
   }
+  
+  getActiveOffers(): Observable<IActiveOffer[]>{
+    return this.http.get<IActiveOffer[]>(this._url4)
+      .pipe(catchError(this.errorHandler));
+  }  
   
   errorHandler(error: HttpErrorResponse){
     return throwError(error.message || "Server Error");

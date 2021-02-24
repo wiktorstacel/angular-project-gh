@@ -1,0 +1,41 @@
+<br>
+<div class="main-container">
+      
+  <form [formGroup]="enterOfferForm" (ngSubmit)="onSubmitSaveOffer()">
+    
+    <mat-form-field class="selectTypeEdit" >
+        <mat-select placeholder="Edycja oferty - wybierz tylko w przypadku edytowania istniejącej oferty" formControlName="id" (selectionChange)="onSubmitCallOffer()">
+          <mat-option [value]="0">Wybierz tą opcję żeby zapisać ofertę jako nową</mat-option>
+          <mat-option *ngFor="let activeOffer of activeOffers;"  [value]="activeOffer.oferta_id">{{ activeOffer.opis }}</mat-option>
+        </mat-select>    
+    </mat-form-field>
+    
+    <mat-form-field class="selectType1" >
+        <mat-select placeholder="Rodzaj oferty" formControlName="wp1" >
+          <mat-option [value]="0">Wszystkie</mat-option>
+          <mat-option *ngFor="let offerType of offerTypes;"  [value]="offerType.rodzaj_id">{{ offerType.nazwa }}</mat-option>
+        </mat-select>    
+    </mat-form-field>
+    
+        <br>
+    <mat-form-field class="selectType1" >
+        <mat-select placeholder="Województwo" formControlName="wp2" #wp2 (selectionChange)="onVoivodeship(wp2.value)">
+          <mat-option [value]="0">Wszystkie</mat-option>
+          <mat-option *ngFor="let voivodeShip of voivodeShips;"  [value]="voivodeShip.wojewodztwo_id">{{ voivodeShip.nazwa }}</mat-option>
+        </mat-select>    
+    </mat-form-field>
+    
+    <br>
+    <mat-form-field class="selectType1" >
+        <mat-select placeholder="Miasto" formControlName="wp3">
+          <mat-option [value]="0">Wszystkie</mat-option>
+          <mat-option *ngFor="let town of towns;"  [value]="town.miejscowosc_id">{{ town.nazwa }}</mat-option>
+        </mat-select>    
+    </mat-form-field>
+    
+    <br>
+    <button mat-raised-button color="primary" type="submit">Zapisz</button>
+    
+  </form>
+  
+</div>

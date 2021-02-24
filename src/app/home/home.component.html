@@ -13,10 +13,10 @@
   <form [formGroup]="searchOfferForm" (ngSubmit)="onSubmitShowOffers()">
     
     <mat-form-field class="selectType1" >
-        <mat-select placeholder="Rodzaj oferty" formControlName="p1" (selectionChange)="onSubmitShowOffers()">
-          <mat-option [value]="0">Wszystkie</mat-option>
-          <mat-option *ngFor="let offerType of offerTypes;"  [value]="offerType.rodzaj_id">{{ offerType.nazwa }}</mat-option>
-        </mat-select>    
+      <mat-select placeholder="Rodzaj oferty" formControlName="p1" (selectionChange)="onSubmitShowOffers()">
+        <mat-option [value]="0">Wszystkie</mat-option>
+        <mat-option *ngFor="let offerType of offerTypes;"  [value]="offerType.rodzaj_id">{{ offerType.nazwa }}</mat-option>
+      </mat-select>    
     </mat-form-field>
     
     <div class="container-checkboxes">
@@ -66,37 +66,35 @@ oferty z backend:<br>
 {{ response | json }}
 
 
-<div class="main-container">
+<!--<div class="main-container">
     
     <div class="form-check mb-3">
-      <input class="form-check-input" #p6 type="checkbox" name="p6" /><!--  [(ngModel)]="userModel.subscribe" -->
+      <input class="form-check-input" #p6 type="checkbox" name="p6" />
       <label class="form-check-label">Aktualne</label>      
     </div>
 
     <div class="form-check mb-3">
-      <input class="form-check-input" #p7 type="checkbox" name="p7" /><!--  [(ngModel)]="userModel.subscribe" -->
+      <input class="form-check-input" #p7 type="checkbox" name="p7" />
       <label class="form-check-label">Nieaktualne</label>      
     </div>
 
     <br><button class="btn btn-primary" (click)="onSendShowOffers(p6.value)">Pokaż</button>
 
-</div>
+</div>-->
 
-<hr>
-
-<h1>Welcome!</h1>
+<!--<h1>Welcome!</h1>
 
 <div class="play-container">
     <p>Klinąłeś <span (click)="countClick()">przycisk</span> {{ clickCounter }} times.</p>
-</div>
+</div>-->
 
-<div class="play-container">
+<!--<div class="play-container">
     <p>
         <input type="text" [(ngModel)]="name">
         <br>
         <strong>Powiedziałeś: </strong> {{ name }}
     </p>
-</div>
+</div>-->
 
 <!-- [style.background-color]="clickCounter > 4 ? 'yellow' : 'lightgrey'" -->
 
@@ -107,7 +105,7 @@ oferty z backend:<br>
 
 <!-- [class.active]="clickCounter > 4" -->
 
-<div class="play-container" [ngClass]="setClasses()">
+<!--<div class="play-container" [ngClass]="setClasses()">
     <ng-template [ngIf]="clickCounter > 4" [ngIfElse]="none">
         <p>Licznik jest <strong>WIĘKSZY</strong> jak 4.</p>
     </ng-template>
@@ -115,12 +113,4 @@ oferty z backend:<br>
     <ng-template #none>
         <p>Licznik jest <strong>NIE WIĘKSZY</strong> jak 4.</p>
     </ng-template>
-</div>
-
-<h3>Employees list</h3>
-<h5>{{errorMsg}}</h5>
-<div class="play-container">
-  <ul *ngFor="let employee of employees">
-    <li>{{employee.id}}. {{employee.name}} - {{employee.age}}</li>
-  </ul>
-</div>
+</div>-->

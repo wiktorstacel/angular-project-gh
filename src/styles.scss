@@ -49,8 +49,52 @@ header {
     }
 }
 
+footer {
+    background: rgb(63, 81, 181);/*rgb(34, 29, 65);*/
+    padding: 1em 0;
+    color: white;
+    margin-top: 10em;
+    
+    span {
+        font-size: 12px;
+    }
+
+    a {
+        color: white; /*rgb(1, 154, 229);*/
+        text-decoration: none;
+    }
+    a.logo {
+        font-weight: bold;
+    }
+
+    nav {
+        float: right;
+
+        ul {
+            list-style-type: none;
+            margin: 0;
+            display: flex;
+
+            li a {
+                padding: 1em;
+
+                &:hover {
+                    background: darken($primary, 10%);
+                    color: white;
+                }
+            }
+        }
+    }
+}
+
 /*h1 {
     margin-top: 2em;
 }
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }*/
+
+.main-container {
+    padding: 1em 3em;
+    border: 1px solid lightgray;
+    margin-bottom: 1em;
+}

@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { EmployeeService } from '../employee.service';
-import { IEmployee } from '../employee';
 import { SelectService } from './select.service';
-import { IOfferType } from './offer-type';
 import { HttpService } from '../http.service';
 //import { User } from './user'; - for purpose of usage ngModel - TDF
 import { FormBuilder, FormGroup } from '@angular/forms'
@@ -20,8 +18,8 @@ export class HomeComponent implements OnInit {
   response = "";
   searchOfferForm: FormGroup;
     
-  clickCounter: number = 0;
-  name: string = 'hey';
+  //clickCounter: number = 0;
+  //name: string = 'hey';
   public employees: Array<{id: number, name: string, age: number}> = []; //Array<{id: number, name: string, age: number}> //Array<Object>
   public errorMsg: any;
   public offerTypes: Array<{rodzaj_id: number, nazwa: string}> = [];
@@ -72,17 +70,17 @@ export class HomeComponent implements OnInit {
     );  
   }
   
-  countClick(){
+  /*countClick(){
       this.clickCounter += 1;
-  }
+  }*/
   
-  setClasses() {
+  /*setClasses() {
     let myClasses = {
         active: this.clickCounter > 4,
         noactive: this.clickCounter <= 4
         }
     return myClasses;
-  }
+  }*/
   
   onSendShowOffers(p6: any) {
     //console.log(userForm);
@@ -133,7 +131,6 @@ export class HomeComponent implements OnInit {
     else
     {
       this.towns = [];
-      alert(this.townsAllMemory);
       for(let i=0; i<this.townsAllMemory.length; i++)
       {
         if(this.townsAllMemory[i].wojewodztwo_id === wojewodztwo_id)

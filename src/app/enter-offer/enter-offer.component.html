@@ -10,6 +10,11 @@
         </mat-select>    
     </mat-form-field>
     
+    <mat-form-field class="inputTypeDescription" color="primary">
+        <input matInput placeholder="Nazwa" formControlName="wp0" >
+        <!--<mat-hint>Min 5 characters</mat-hint>-->
+    </mat-form-field>
+    <br>
     <mat-form-field class="selectType1" >
         <mat-select placeholder="Rodzaj oferty" formControlName="wp1" >
           <mat-option [value]="0">Wszystkie</mat-option>
@@ -17,7 +22,7 @@
         </mat-select>    
     </mat-form-field>
     
-        <br>
+    <br>
     <mat-form-field class="selectType1" >
         <mat-select placeholder="Województwo" formControlName="wp2" #wp2 (selectionChange)="onVoivodeship(wp2.value)">
           <mat-option [value]="0">Wszystkie</mat-option>
@@ -27,11 +32,40 @@
     
     <br>
     <mat-form-field class="selectType1" >
-        <mat-select placeholder="Miasto" formControlName="wp3">
+        <mat-select placeholder="Miejscowość" formControlName="wp3" >
           <mat-option [value]="0">Wszystkie</mat-option>
           <mat-option *ngFor="let town of towns;"  [value]="town.miejscowosc_id">{{ town.nazwa }}</mat-option>
         </mat-select>    
     </mat-form-field>
+    
+    <mat-checkbox color="primary" class="checkboxNewTown" (change)="switchTownInput()">
+      
+    </mat-checkbox>
+    
+    <mat-form-field class="inputTypeNewTown" color="primary" >
+        <input matInput placeholder="Nowa Miejscowość" formControlName="wp4" #formRow>
+    </mat-form-field>
+    
+    <br>
+    <mat-form-field class="inputTypeDescription" color="primary">
+        <input matInput placeholder="Adres" formControlName="wp5" >
+    </mat-form-field>
+    
+    <br>
+    <mat-form-field class="inputNumber">
+      <input matInput type="number" placeholder="Powierzchnia" formControlName="wp6" >
+    </mat-form-field>m<sup>2</sup>
+    
+    <br>
+    <mat-form-field class="inputNumber">
+      <input matInput type="number" placeholder="Cena" formControlName="wp7" >
+    </mat-form-field>pln
+    
+    <br>
+    <mat-form-field class="inputTextArea">
+        <textarea matInput placeholder="Opis oferty..." formControlName="wp8"></textarea>
+    </mat-form-field>
+    
     
     <br>
     <button mat-raised-button color="primary" type="submit">Zapisz</button>

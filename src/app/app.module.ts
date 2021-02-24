@@ -18,6 +18,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { TextFieldModule } from '@angular/cdk/text-field';
 
 
 @NgModule({
@@ -37,7 +38,8 @@ import { MatToolbarModule } from '@angular/material/toolbar';
     MatButtonModule,
     MatCheckboxModule,
     MatChipsModule,
-    MatToolbarModule
+    MatToolbarModule,
+    TextFieldModule
   ],
   providers: [
     HttpService,

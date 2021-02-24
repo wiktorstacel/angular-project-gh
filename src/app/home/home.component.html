@@ -40,7 +40,7 @@
     
     <br>
     <mat-form-field class="selectType1" >
-        <mat-select placeholder="Miasto" formControlName="p3" (selectionChange)="onSubmitShowOffers()">
+        <mat-select placeholder="Miejscowość" formControlName="p3" (selectionChange)="onSubmitShowOffers()">
           <mat-option [value]="0">Wszystkie</mat-option>
           <mat-option *ngFor="let town of towns;"  [value]="town.miejscowosc_id">{{ town.nazwa }}</mat-option>
         </mat-select>    

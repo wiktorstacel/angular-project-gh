@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
 import { SelectService } from '../home/select.service';
+import { HttpService } from '../http.service';
+//import { ElementRef, ViewChildren } from '@angular/core';
 
 @Component({
   selector: 'app-enter-offer',
@@ -10,6 +12,8 @@ import { SelectService } from '../home/select.service';
 export class EnterOfferComponent implements OnInit {
   
   enterOfferForm: FormGroup;
+  checkboxNewTownStatus = false;
+  response = "";
   
   public errorMsg: any;
   public offerTypes: Array<{rodzaj_id: number, nazwa: string}> = [];
@@ -18,20 +22,27 @@ export class EnterOfferComponent implements OnInit {
   public townsAllMemory: Array<{miejscowosc_id: number, nazwa: string, wojewodztwo_id: number}> = [];
   public activeOffers: Array<{oferta_id: number, opis: string}> = [];
 
-  constructor(private fb: FormBuilder, private _selectService: SelectService) {
+  constructor(
+                private fb: FormBuilder, 
+                private _selectService: SelectService,
+                private _http: HttpService
+              ) {
     this.enterOfferForm = fb.group({});
   }
 
   ngOnInit(): void {
     
     this.enterOfferForm = this.fb.group({
-    wp1: [null],
-    wp2: [null],
-    wp3: [null]
-    //p4: [],
-    //p5: [],
-    //p6: [true],
-    //p7: [false]
+      id: [],
+      wp0: [null],
+      wp1: [null],
+      wp2: [null],
+      wp3: [null],
+      wp4: [{value: null, disabled: true}],//wp4: new FormControl({value: 'Nancy', disabled: true})
+      wp5: [null],
+      wp6: [null],
+      wp7: [null],
+      wp8: [null]
     });
     
     this._selectService.getOfferTypes().subscribe(
@@ -56,12 +67,36 @@ export class EnterOfferComponent implements OnInit {
     
   }
   
+  switchTownInput() {
+    if(this.enterOfferForm.controls['wp3'].disabled)
+    {
+      this.enterOfferForm.controls['wp3'].enable();
+      this.enterOfferForm.controls['wp4'].disable();
+    }
+    else
+    {
+      this.enterOfferForm.controls['wp3'].disable();
+      this.enterOfferForm.controls['wp4'].enable();
+      //FormGroup.focus(this.fg.controls.wp4);
+      //this.enterOfferForm.controls['wp4'].focus();      
+    }
+  }
+  
   onSubmitCallOffer() {
     
   }
   
   onSubmitSaveOffer() {
-    
+    console.log(this.enterOfferForm.value);
+    this._http.onSubmitSaveOffers(this.enterOfferForm.value).subscribe(
+      res => {
+        console.log(res);
+        this.response = res;
+      },
+      err => {
+        console.log(err);
+      }
+    )
   }
   
   onVoivodeship(wojewodztwo_id: number) {

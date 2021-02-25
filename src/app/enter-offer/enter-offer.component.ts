@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
+import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { SelectService } from '../home/select.service';
 import { HttpService } from '../http.service';
 //import { ElementRef, ViewChildren } from '@angular/core';
@@ -14,6 +14,11 @@ export class EnterOfferComponent implements OnInit {
   enterOfferForm: FormGroup;
   checkboxNewTownStatus = false;
   response = "";
+  
+  //unamePattern = "^[a-z0-9_-]{8,15}$";
+  //pwdPattern = "^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).{6,12}$";
+  //mobnumPattern = "^((\\+91-?)|0)?[0-9]{10}$"; 
+  //emailPattern = "^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$";
   
   public errorMsg: any;
   public offerTypes: Array<{rodzaj_id: number, nazwa: string}> = [];
@@ -34,15 +39,31 @@ export class EnterOfferComponent implements OnInit {
     
     this.enterOfferForm = this.fb.group({
       id: [],
-      wp0: [null],
-      wp1: [null],
-      wp2: [null],
-      wp3: [null],
-      wp4: [{value: null, disabled: true}],//wp4: new FormControl({value: 'Nancy', disabled: true})
-      wp5: [null],
-      wp6: [null],
-      wp7: [null],
-      wp8: [null]
+      wp0: [null,[
+        Validators.required,
+        Validators.minLength(5), Validators.maxLength(40),
+        Validators.pattern('^(ą| |ę|ź|ć|ń|ó|ś|ż|ł|Ą|Ę|Ź|Ć|Ń|Ó|Ś|Ż|[a-z]|[A-Z]|[0-9]){5,40}$')
+      ]],
+      wp1: [null, Validators.required],
+      wp2: [null, Validators.required],
+      wp3: [null, Validators.required],
+      wp4: [
+        {value: null, disabled: true},[
+        Validators.required,//wp4: new FormControl({value: 'Nancy', disabled: true})
+        Validators.minLength(3), Validators.maxLength(20),
+        Validators.pattern('^(ą| |-|ę|ź|ć|ń|ó|ś|ż|ł|Ą|Ę|Ź|Ć|Ń|Ó|Ś|Ż|[a-z]|[A-Z]){3,20}$')
+      ]],
+      wp5: [null,[
+        Validators.required,
+        Validators.minLength(5), Validators.maxLength(30),
+        Validators.pattern('^(ą| |-|/|\|ę|ź|ć|ń|ó|ś|ż|ł|Ą|Ę|Ź|Ć|Ń|Ó|Ś|Ż|[a-z]|[A-Z]|[0-9]){5,40}$')
+      ]],
+      wp6: [null, Validators.required, Validators.maxLength(9)],
+      wp7: [null, Validators.required, Validators.maxLength(9)],
+      wp8: [null,[
+        Validators.maxLength(255),
+        Validators.pattern('^(ą| |\\?|\\!|\\.|,|-|/|\|ę|ź|ć|ń|ó|ś|ż|ł|Ą|Ę|Ź|Ć|Ń|Ó|Ś|Ż|[a-z]|[A-Z]|[0-9]){0,255}$')
+      ]]
     });
     
     this._selectService.getOfferTypes().subscribe(
@@ -117,5 +138,15 @@ export class EnterOfferComponent implements OnInit {
       }
     }
   }
+  
+  get wp0() {return this.enterOfferForm.get('wp0');}
+  get wp1() {return this.enterOfferForm.get('wp1');}
+  get wp2() {return this.enterOfferForm.get('wp2');}
+  get wp3() {return this.enterOfferForm.get('wp3');}
+  get wp4() {return this.enterOfferForm.get('wp4');}
+  get wp5() {return this.enterOfferForm.get('wp5');}
+  get wp6() {return this.enterOfferForm.get('wp6');}
+  get wp7() {return this.enterOfferForm.get('wp7');}
+  get wp8() {return this.enterOfferForm.get('wp8');}
 
 }

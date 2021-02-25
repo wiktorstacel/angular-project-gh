@@ -10,64 +10,83 @@
         </mat-select>    
     </mat-form-field>
     
-    <mat-form-field class="inputTypeDescription" color="primary">
-        <input matInput placeholder="Nazwa" formControlName="wp0" >
-        <!--<mat-hint>Min 5 characters</mat-hint>-->
-    </mat-form-field>
     <br>
-    <mat-form-field class="selectType1" >
-        <mat-select placeholder="Rodzaj oferty" formControlName="wp1" >
-          <mat-option [value]="0">Wszystkie</mat-option>
-          <mat-option *ngFor="let offerType of offerTypes;"  [value]="offerType.rodzaj_id">{{ offerType.nazwa }}</mat-option>
-        </mat-select>    
+    <mat-form-field class="inputTypeDescription" color="primary" required>
+        <input matInput placeholder="Nazwa" formControlName="wp0" >
+        <mat-error *ngIf="wp0?.errors?.required" >Nazwa jest wymagana</mat-error>
+        <mat-error *ngIf="wp0?.errors?.minlength" >Minimum 5 znaków</mat-error>
+        <mat-error *ngIf="wp0?.errors?.maxlength" >Maksimum 40 znaków</mat-error>
+        <mat-error *ngIf="wp0?.errors?.pattern && !wp0?.errors?.minlength && !wp0?.errors?.maxlength" >Tylko litery i cyfry</mat-error>        
     </mat-form-field>
     
     <br>
-    <mat-form-field class="selectType1" >
-        <mat-select placeholder="Województwo" formControlName="wp2" #wp2 (selectionChange)="onVoivodeship(wp2.value)">
-          <mat-option [value]="0">Wszystkie</mat-option>
+    <mat-form-field class="selectType1" required>
+        <mat-select placeholder="Rodzaj oferty" formControlName="wp1" >
+          <mat-option *ngFor="let offerType of offerTypes;"  [value]="offerType.rodzaj_id">{{ offerType.nazwa }}</mat-option>
+        </mat-select> 
+        <mat-error *ngIf="wp1?.errors?.required" >Pole jest wymagane</mat-error>
+    </mat-form-field>
+    
+    <br>
+    <mat-form-field class="selectType1" required>
+        <mat-select placeholder="Województwo" formControlName="wp2" #wp2_voivo (selectionChange)="onVoivodeship(wp2_voivo.value)">
           <mat-option *ngFor="let voivodeShip of voivodeShips;"  [value]="voivodeShip.wojewodztwo_id">{{ voivodeShip.nazwa }}</mat-option>
         </mat-select>    
+        <mat-error *ngIf="wp2?.errors?.required" >Pole jest wymagane</mat-error>
     </mat-form-field>
     
     <br>
-    <mat-form-field class="selectType1" >
+    <mat-form-field class="selectType1" required>
         <mat-select placeholder="Miejscowość" formControlName="wp3" >
-          <mat-option [value]="0">Wszystkie</mat-option>
           <mat-option *ngFor="let town of towns;"  [value]="town.miejscowosc_id">{{ town.nazwa }}</mat-option>
-        </mat-select>    
+        </mat-select>
+        <mat-error *ngIf="wp3?.errors?.required" >Pole jest wymagane</mat-error>
     </mat-form-field>
     
     <mat-checkbox color="primary" class="checkboxNewTown" (change)="switchTownInput()">
       
     </mat-checkbox>
     
-    <mat-form-field class="inputTypeNewTown" color="primary" >
+    <mat-form-field class="inputTypeNewTown" color="primary" required>
         <input matInput placeholder="Nowa Miejscowość" formControlName="wp4" #formRow>
+        <mat-error *ngIf="wp4?.errors?.required" >Pole jest wymagane</mat-error>
+        <mat-error *ngIf="wp4?.errors?.minlength" >Minimum 3 znaki</mat-error>
+        <mat-error *ngIf="wp4?.errors?.maxlength" >Maksimum 20 znaków</mat-error>
+        <mat-error *ngIf="wp4?.errors?.pattern && !wp4?.errors?.minlength && !wp4?.errors?.maxlength" >Tylko litery</mat-error> 
     </mat-form-field>
     
     <br>
-    <mat-form-field class="inputTypeDescription" color="primary">
+    <mat-form-field class="inputTypeDescription" color="primary" required>
         <input matInput placeholder="Adres" formControlName="wp5" >
+        <mat-error *ngIf="wp5?.errors?.required" >Adres jest wymagany</mat-error>
+        <mat-error *ngIf="wp5?.errors?.minlength" >Minimum 5 znaków</mat-error>
+        <mat-error *ngIf="wp5?.errors?.maxlength" >Maksimum 30 znaków</mat-error>
+        <mat-error *ngIf="wp5?.errors?.pattern && !wp5?.errors?.minlength && !wp5?.errors?.maxlength" >Tylko litery, cyfry i znaki /\-</mat-error> 
     </mat-form-field>
     
     <br>
-    <mat-form-field class="inputNumber">
+    <mat-form-field class="inputNumber" required>
       <input matInput type="number" placeholder="Powierzchnia" formControlName="wp6" >
+      <mat-error *ngIf="wp6?.errors?.required" >Pole jest wymagane</mat-error>
+      <mat-error *ngIf="wp6?.errors?.maxlength" >Maksimum 9 znaków</mat-error>
     </mat-form-field>m<sup>2</sup>
     
     <br>
-    <mat-form-field class="inputNumber">
+    <mat-form-field class="inputNumber" required>
       <input matInput type="number" placeholder="Cena" formControlName="wp7" >
+      <mat-error *ngIf="wp7?.errors?.required" >Pole jest wymagane</mat-error>
+      <mat-error *ngIf="wp7?.errors?.maxlength" >Maksimum 9 znaków</mat-error>
     </mat-form-field>pln
     
     <br>
-    <mat-form-field class="inputTextArea">
+    <mat-form-field class="inputTextArea" >
         <textarea matInput placeholder="Opis oferty..." formControlName="wp8"></textarea>
+        <mat-error *ngIf="wp8?.errors?.maxlength" >Maksimum 255 znaków</mat-error>
+        <mat-error *ngIf="wp8?.errors?.pattern && !wp8?.errors?.maxlength" >Tylko litery, cyfry i znaki /\-!?.,</mat-error> 
     </mat-form-field>
     
     
-    <br>
+    <br><br>
     <button mat-raised-button color="primary" type="submit">Zapisz</button>
     
   </form>

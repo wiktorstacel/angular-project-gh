@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { IOfferFormat } from './enter-offer/offer-format';
 //import { User } from './code1/user'; - for purpose of usage ngModel - TDF
 
 @Injectable({
@@ -32,5 +33,9 @@ export class HttpService {
   
   onSubmitSaveOffers(fromData: FormData):Observable<any>{
     return this.http.post<any>('/api/api/show_offers.php', fromData)
+  }
+  
+  onCallOfferToEdit(fromData: FormData):Observable<IOfferFormat[]>{
+    return this.http.post<IOfferFormat[]>('/api/api/insert_offer.php', fromData)
   }
 }

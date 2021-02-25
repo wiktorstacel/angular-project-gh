@@ -4,7 +4,7 @@
   <form [formGroup]="enterOfferForm" (ngSubmit)="onSubmitSaveOffer()">
     
     <mat-form-field class="selectTypeEdit" >
-        <mat-select placeholder="Edycja oferty - wybierz tylko w przypadku edytowania istniejącej oferty" formControlName="id" (selectionChange)="onSubmitCallOffer()">
+        <mat-select placeholder="Edycja oferty - wybierz tylko w przypadku edytowania istniejącej oferty" formControlName="id" #id_d (selectionChange)="onChangeCallOffer(id_d.value)">
           <mat-option [value]="0">Wybierz tą opcję żeby zapisać ofertę jako nową</mat-option>
           <mat-option *ngFor="let activeOffer of activeOffers;"  [value]="activeOffer.oferta_id">{{ activeOffer.opis }}</mat-option>
         </mat-select>    
@@ -88,6 +88,7 @@
     
     <br><br>
     <button mat-raised-button color="primary" type="submit">Zapisz</button>
+    <button mat-raised-button color="warn" type="reset" class="resetButton">Reset</button>
     
   </form>
   

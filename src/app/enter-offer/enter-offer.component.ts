@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { SelectService } from '../home/select.service';
 import { HttpService } from '../http.service';
+import { IOfferFormat } from './offer-format';
 //import { ElementRef, ViewChildren } from '@angular/core';
 
 @Component({
@@ -26,6 +27,18 @@ export class EnterOfferComponent implements OnInit {
   public towns: Array<{miejscowosc_id: number, nazwa: string, wojewodztwo_id: number}> = [];
   public townsAllMemory: Array<{miejscowosc_id: number, nazwa: string, wojewodztwo_id: number}> = [];
   public activeOffers: Array<{oferta_id: number, opis: string}> = [];
+  public offerToEdit: Array<IOfferFormat/*{  
+                              nazwa: string,
+                              rodzaj_id: number,
+                              wojewodztwo_id: number,
+                              miejscowosc_id: number,
+                              ulica: string,
+                              powierzchnia: number,
+                              cena: number,
+                              opis: string,
+                              oferta_id: number,
+                              stan: number
+                            }*/> = [];
 
   constructor(
                 private fb: FormBuilder, 
@@ -58,8 +71,8 @@ export class EnterOfferComponent implements OnInit {
         Validators.minLength(5), Validators.maxLength(30),
         Validators.pattern('^(ą| |-|/|\|ę|ź|ć|ń|ó|ś|ż|ł|Ą|Ę|Ź|Ć|Ń|Ó|Ś|Ż|[a-z]|[A-Z]|[0-9]){5,40}$')
       ]],
-      wp6: [null, Validators.required, Validators.maxLength(9)],
-      wp7: [null, Validators.required, Validators.maxLength(9)],
+      wp6: [null,[Validators.required, Validators.maxLength(9)]],
+      wp7: [null,[Validators.required, Validators.maxLength(9)]],
       wp8: [null,[
         Validators.maxLength(255),
         Validators.pattern('^(ą| |\\?|\\!|\\.|,|-|/|\|ę|ź|ć|ń|ó|ś|ż|ł|Ą|Ę|Ź|Ć|Ń|Ó|Ś|Ż|[a-z]|[A-Z]|[0-9]){0,255}$')
@@ -103,8 +116,27 @@ export class EnterOfferComponent implements OnInit {
     }
   }
   
-  onSubmitCallOffer() {
-    
+  onChangeCallOffer(id: string) { //How to change to number?
+    const formData : FormData = new FormData();
+    formData.append('id', id);
+    this._http.onCallOfferToEdit(formData).subscribe(
+        res => {console.log(res);this.offerToEdit = res;},
+        err => {console.log(err);},
+        () => {
+          console.log("callback function insert form");
+          this.enterOfferForm.patchValue({ //patchValue - not all fields have to be given
+            wp0: this.offerToEdit[0].nazwa,
+            wp1: this.offerToEdit[0].rodzaj_id,
+            wp2: this.offerToEdit[0].wojewodztwo_id,
+            wp3: this.offerToEdit[0].miejscowosc_id,
+            //wp4: this.offerToEdit[0].nazwa,
+            wp5: this.offerToEdit[0].ulica,
+            wp6: this.offerToEdit[0].powierzchnia,
+            wp7: this.offerToEdit[0].cena,
+            wp8: this.offerToEdit[0].opis
+          })
+        }
+    )
   }
   
   onSubmitSaveOffer() {
@@ -138,6 +170,7 @@ export class EnterOfferComponent implements OnInit {
       }
     }
   }
+  
   
   get wp0() {return this.enterOfferForm.get('wp0');}
   get wp1() {return this.enterOfferForm.get('wp1');}

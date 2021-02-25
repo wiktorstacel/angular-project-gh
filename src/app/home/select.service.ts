@@ -3,7 +3,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { IOfferType } from './offer-type';
 import { IVoivodeship } from './voivodeship';
 import { ITown } from './town';
-import { IActiveOffer } from '../enter-offer/active_offer';
+import { IActiveOffer } from '../enter-offer/active-offer';
 import { Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { throwError } from 'rxjs';

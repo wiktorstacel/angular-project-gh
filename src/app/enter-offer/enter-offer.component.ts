@@ -15,6 +15,7 @@ export class EnterOfferComponent implements OnInit {
   enterOfferForm: FormGroup;
   checkboxNewTownStatus = false;
   response = "";
+  responseFromSave = "";
   
   //unamePattern = "^[a-z0-9_-]{8,15}$";
   //pwdPattern = "^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).{6,12}$";
@@ -117,26 +118,31 @@ export class EnterOfferComponent implements OnInit {
   }
   
   onChangeCallOffer(id: string) { //How to change to number?
-    const formData : FormData = new FormData();
-    formData.append('id', id);
-    this._http.onCallOfferToEdit(formData).subscribe(
-        res => {console.log(res);this.offerToEdit = res;},
-        err => {console.log(err);},
-        () => {
-          console.log("callback function insert form");
-          this.enterOfferForm.patchValue({ //patchValue - not all fields have to be given
-            wp0: this.offerToEdit[0].nazwa,
-            wp1: this.offerToEdit[0].rodzaj_id,
-            wp2: this.offerToEdit[0].wojewodztwo_id,
-            wp3: this.offerToEdit[0].miejscowosc_id,
-            //wp4: this.offerToEdit[0].nazwa,
-            wp5: this.offerToEdit[0].ulica,
-            wp6: this.offerToEdit[0].powierzchnia,
-            wp7: this.offerToEdit[0].cena,
-            wp8: this.offerToEdit[0].opis
-          })
-        }
-    )
+    var idd: number = +id;
+    if(idd > 0)
+    {
+      const formData : FormData = new FormData();
+      formData.append('id', id);
+      this._http.onCallOfferToEdit(formData).subscribe(
+          res => {console.log(res);this.offerToEdit = res;},
+          err => {console.log(err);},
+          () => {
+            console.log("callback function insert form");
+            this.enterOfferForm.patchValue({ //patchValue - not all fields have to be given
+              wp0: this.offerToEdit[0].nazwa,
+              wp1: this.offerToEdit[0].rodzaj_id,
+              wp2: this.offerToEdit[0].wojewodztwo_id,
+              wp3: this.offerToEdit[0].miejscowosc_id,
+              //wp4: this.offerToEdit[0].nazwa,
+              wp5: this.offerToEdit[0].ulica,
+              wp6: this.offerToEdit[0].powierzchnia,
+              wp7: this.offerToEdit[0].cena,
+              wp8: this.offerToEdit[0].opis
+            })
+            this.onVoivodeship(this.offerToEdit[0].wojewodztwo_id);
+          }
+      )
+    }
   }
   
   onSubmitSaveOffer() {
@@ -144,10 +150,29 @@ export class EnterOfferComponent implements OnInit {
     this._http.onSubmitSaveOffers(this.enterOfferForm.value).subscribe(
       res => {
         console.log(res);
-        this.response = res;
+        this.responseFromSave = res;
       },
       err => {
         console.log(err);
+      },
+      () => {
+        //alert('callback1');
+        //reload of town list in case new one was introduced
+        this._selectService.getTowns().subscribe(
+        data => {this.townsAllMemory = data},
+        error => this.errorMsg = error,
+        () => {
+          //alert('callback2');
+          this.onVoivodeship(this.enterOfferForm.controls['wp2'].value);
+          //this.enterOfferForm.controls['wp3'].reset();
+          //reload of select with offers to edit
+          this._selectService.getActiveOffers().subscribe(
+          data => this.activeOffers = data,
+          error => this.errorMsg = error
+          );
+          this.enterOfferForm.controls['id'].reset();
+        }
+        );
       }
     )
   }
@@ -169,6 +194,10 @@ export class EnterOfferComponent implements OnInit {
         }
       }
     }
+  }
+  
+  enterOfferFormReset() {
+    this.towns = this.townsAllMemory;
   }
   
   

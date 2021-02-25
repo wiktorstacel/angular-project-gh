@@ -87,8 +87,9 @@
     
     
     <br><br>
-    <button mat-raised-button color="primary" type="submit">Zapisz</button>
-    <button mat-raised-button color="warn" type="reset" class="resetButton">Reset</button>
+    <button mat-raised-button [disabled]="!enterOfferForm.valid" color="primary" type="submit">Zapisz</button>
+    <button mat-raised-button color="warn" type="reset" class="resetButton" (click)="enterOfferFormReset()">Reset</button>
+    {{responseFromSave | json}}
     
   </form>
   

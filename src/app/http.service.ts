@@ -32,7 +32,7 @@ export class HttpService {
   }
   
   onSubmitSaveOffers(fromData: FormData):Observable<any>{
-    return this.http.post<any>('/api/api/show_offers.php', fromData)
+    return this.http.post<any>('/api/api/save_offer.php', fromData)
   }
   
   onCallOfferToEdit(fromData: FormData):Observable<IOfferFormat[]>{

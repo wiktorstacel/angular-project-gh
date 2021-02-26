@@ -8,3 +8,19 @@
 {{ response | json }}
 
 </div>
+
+<div class="container-fluid mb-5">
+  <h1>2 way binding</h1>
+
+<input #nameRef type="text" [(ngModel)]="testName" class="form-control">
+<p>Welcome {{testName}}</p>
+
+<hr>
+<input type="text" [ngModel]="userName" (ngModelChange)="greetVishwas($event)" class="form-control">
+<p>Welcome {{userName}}</p>
+
+<hr>
+<input type="text" [(ngModel)]="customerName" class="form-control">
+<p>Welcome {{customerName}}</p>
+
+</div>

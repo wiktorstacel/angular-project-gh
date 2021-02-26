@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { SelectService } from '../home/select.service';
 import { HttpService } from '../http.service';
@@ -16,6 +16,11 @@ export class EnterOfferComponent implements OnInit {
   checkboxNewTownStatus = false;
   response = "";
   responseFromSave = "";
+  @ViewChild('wp4Ref') wp4ElementRef!: ElementRef;
+  newTownInputState: boolean = false;
+  @ViewChild('checkboxRef') checkboxElementRef!: ElementRef;
+  @ViewChild('submitButtonRef') submitButtonElementRef!: ElementRef;
+  isDisabled = false;
   
   //unamePattern = "^[a-z0-9_-]{8,15}$";
   //pwdPattern = "^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).{6,12}$";
@@ -112,6 +117,7 @@ export class EnterOfferComponent implements OnInit {
     {
       this.enterOfferForm.controls['wp3'].disable();
       this.enterOfferForm.controls['wp4'].enable();
+      this.wp4ElementRef.nativeElement.focus();
       //FormGroup.focus(this.fg.controls.wp4);
       //this.enterOfferForm.controls['wp4'].focus();      
     }
@@ -147,6 +153,8 @@ export class EnterOfferComponent implements OnInit {
   
   onSubmitSaveOffer() {
     console.log(this.enterOfferForm.value);
+    //this.submitButtonElementRef.nativeElement.disabled = true;//trying to disable button with ElementRef
+    this.isDisabled = true;//submit button
     this._http.onSubmitSaveOffers(this.enterOfferForm.value).subscribe(
       res => {
         console.log(res);
@@ -155,13 +163,13 @@ export class EnterOfferComponent implements OnInit {
       err => {
         console.log(err);
       },
-      () => {
+      () => { //CALBACK1
         //alert('callback1');
         //reload of town list in case new one was introduced
         this._selectService.getTowns().subscribe(
         data => {this.townsAllMemory = data},
         error => this.errorMsg = error,
-        () => {
+        () => { //CALBACK2
           //alert('callback2');
           this.onVoivodeship(this.enterOfferForm.controls['wp2'].value);
           //this.enterOfferForm.controls['wp3'].reset();
@@ -170,7 +178,8 @@ export class EnterOfferComponent implements OnInit {
           data => this.activeOffers = data,
           error => this.errorMsg = error
           );
-          this.enterOfferForm.controls['id'].reset();
+          //this.enterOfferForm.controls['id'].reset();
+          this.isDisabled = false;//submit button
         }
         );
       }
@@ -198,6 +207,8 @@ export class EnterOfferComponent implements OnInit {
   
   enterOfferFormReset() {
     this.towns = this.townsAllMemory;
+    this.checkboxElementRef.nativeElement.checked = false;
+    //this.newTownInputState = false;
   }
   
   

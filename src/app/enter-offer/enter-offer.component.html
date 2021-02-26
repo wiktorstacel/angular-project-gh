@@ -43,12 +43,12 @@
         <mat-error *ngIf="wp3?.errors?.required" >Pole jest wymagane</mat-error>
     </mat-form-field>
     
-    <mat-checkbox color="primary" class="checkboxNewTown" (change)="switchTownInput()">
+    <mat-checkbox #checkboxRef color="primary" class="checkboxNewTown" (change)="switchTownInput()" [checked]="newTownInputState">
       
     </mat-checkbox>
     
     <mat-form-field class="inputTypeNewTown" color="primary" required>
-        <input matInput placeholder="Nowa Miejscowość" formControlName="wp4" #formRow>
+        <input matInput #wp4Ref placeholder="Nowa Miejscowość" formControlName="wp4">
         <mat-error *ngIf="wp4?.errors?.required" >Pole jest wymagane</mat-error>
         <mat-error *ngIf="wp4?.errors?.minlength" >Minimum 3 znaki</mat-error>
         <mat-error *ngIf="wp4?.errors?.maxlength" >Maksimum 20 znaków</mat-error>
@@ -87,7 +87,7 @@
     
     
     <br><br>
-    <button mat-raised-button [disabled]="!enterOfferForm.valid" color="primary" type="submit">Zapisz</button>
+    <button mat-raised-button #submitButtonRef [disabled]="!enterOfferForm.valid || isDisabled" color="primary" type="submit">Zapisz</button>
     <button mat-raised-button color="warn" type="reset" class="resetButton" (click)="enterOfferFormReset()">Reset</button>
     {{responseFromSave | json}}
     

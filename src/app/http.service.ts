@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { IOfferFormat } from './enter-offer/offer-format';
+import { IOfferShow } from './home/offer-show';
 //import { User } from './code1/user'; - for purpose of usage ngModel - TDF
 
 @Injectable({
@@ -27,8 +28,8 @@ export class HttpService {
     return this.http.post<any>('/api/api/show_offers.php', fromData)
   }
   
-  onSubmitShowOffers(fromData: FormData):Observable<any>{
-    return this.http.post<any>('/api/api/show_offers.php', fromData)
+  onSubmitShowOffers(fromData: FormData):Observable<IOfferShow[]>{
+    return this.http.post<IOfferShow[]>('/api/api/show_offers.php', fromData)
   }
   
   onSubmitSaveOffers(fromData: FormData):Observable<any>{

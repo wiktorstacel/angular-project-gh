@@ -207,7 +207,7 @@ export class EnterOfferComponent implements OnInit {
   
   enterOfferFormReset() {
     this.towns = this.townsAllMemory;
-    this.checkboxElementRef.nativeElement.checked = false;
+    //this.checkboxElementRef.nativeElement.checked = false; //doesn't work
     //this.newTownInputState = false;
   }
   

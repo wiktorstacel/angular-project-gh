@@ -1,11 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { EmployeeService } from '../employee.service';
 import { SelectService } from './select.service';
 import { HttpService } from '../http.service';
 //import { User } from './user'; - for purpose of usage ngModel - TDF
 import { FormBuilder, FormGroup } from '@angular/forms'
-
 //import { Observable } from 'rxjs';
+import { IOfferShow } from './offer-show';
+import { MatPaginator } from '@angular/material/paginator'
+import { MatTableDataSource } from '@angular/material/table'
+
+const ELEMENT_DATA: IOfferShow[] = [];
 
 @Component({
   selector: 'app-home',
@@ -14,18 +18,24 @@ import { FormBuilder, FormGroup } from '@angular/forms'
 })
 export class HomeComponent implements OnInit {
   
-  //offerTypes = ['Dom', 'Mieszkanie', 'Biuro'];
   response = "";
   searchOfferForm: FormGroup;
+  
+  //@ViewChild(MatPaginator) paginator: MatPaginator;
     
-  //clickCounter: number = 0;
-  //name: string = 'hey';
+  //name: string = 'hey';//clickCounter: number = 0;
   public employees: Array<{id: number, name: string, age: number}> = []; //Array<{id: number, name: string, age: number}> //Array<Object>
   public errorMsg: any;
   public offerTypes: Array<{rodzaj_id: number, nazwa: string}> = [];
   public voivodeShips: Array<{wojewodztwo_id: number, nazwa: string}> = [];
   public towns: Array<{miejscowosc_id: number, nazwa: string, wojewodztwo_id: number}> = [];
   public townsAllMemory: Array<{miejscowosc_id: number, nazwa: string, wojewodztwo_id: number}> = [];
+  //public offersShow: MatTableDataSource<IOfferShow>;
+  //public offersShow: IOfferShow[] = [];//Array<IOfferShow> - pierwotnie działające deklaracje bez MatTableDataSource
+  //offersShow_O = new MatTableDataSource(this.offersShow);
+  offersShow = new MatTableDataSource<IOfferShow>();  
+  displayedColumns: string[] = ['oferta_id','nazwa','wojewodztwoNazwa','miejscowoscNazwa','ulica','powierzchnia','cena','opis','zakup','usun'];
+
 
   constructor(
                 private _employeeService: EmployeeService, 
@@ -67,7 +77,8 @@ export class HomeComponent implements OnInit {
     this._selectService.getTowns().subscribe(
         data => {this.towns = data, this.townsAllMemory = data},
         error => this.errorMsg = error
-    );  
+    );
+      
   }
   
   /*countClick(){
@@ -82,7 +93,7 @@ export class HomeComponent implements OnInit {
     return myClasses;
   }*/
   
-  onSendShowOffers(p6: any) {
+  /*onSendShowOffers(p6: any) {
     //console.log(userForm);
     //console.log(p6);
     const formData : FormData = new FormData();
@@ -97,7 +108,7 @@ export class HomeComponent implements OnInit {
         console.log(err);
       }
     )
-  }
+  }*/
   
   onSubmitShowOffers() {
     //console.log(this.registrationForm.value);
@@ -114,7 +125,9 @@ export class HomeComponent implements OnInit {
     this._http.onSubmitShowOffers(this.searchOfferForm.value).subscribe(
       res => {
         console.log(res);
-        this.response = res;
+        //this.offersShow = new MatTableDataSource(res); //works as well
+        this.offersShow.data = res; //.data!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!https://stackoverflow.com/questions/57770423/how-to-use-the-mattabledatasource-with-an-observable
+        //this.offersShow.paginator = this.paginator;
       },
       err => {
         console.log(err);
@@ -142,5 +155,16 @@ export class HomeComponent implements OnInit {
     this.onSubmitShowOffers();
   }
   
+  buyRow(id: number) {
+    
+  }
+  
+  deleteRow(id: number) {
+    
+  }
+  
+  applyFilter(filterValue: string) {
+    this.offersShow.filter = filterValue.trim().toLowerCase();
+  }
 
 }

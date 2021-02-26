@@ -19,6 +19,8 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { TextFieldModule } from '@angular/cdk/text-field';
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 
 @NgModule({
@@ -39,7 +41,9 @@ import { TextFieldModule } from '@angular/cdk/text-field';
     MatCheckboxModule,
     MatChipsModule,
     MatToolbarModule,
-    TextFieldModule
+    TextFieldModule,
+    MatTableModule,
+    MatPaginatorModule
   ],
   providers: [
     HttpService,

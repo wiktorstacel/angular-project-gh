@@ -1,4 +1,5 @@
 export interface IActiveOffer {
   oferta_id: number,
-  opis: string
+  opis: string,
+  cena: number
 }

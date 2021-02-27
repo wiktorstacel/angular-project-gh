@@ -4,6 +4,7 @@ import { IOfferType } from './offer-type';
 import { IVoivodeship } from './voivodeship';
 import { ITown } from './town';
 import { IActiveOffer } from '../enter-offer/active-offer';
+import { IAgentShow } from '../transaction/agent-show';
 import { Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { throwError } from 'rxjs';
@@ -17,6 +18,7 @@ export class SelectService {
   private _url2: string = '/api/api/voivodeships.php';
   private _url3: string = '/api/api/towns.php';
   private _url4: string = '/api/api/active_offers.php';
+  private _url5: string = '/api/api/show_agents.php';
 
   constructor(private http: HttpClient) { }
   
@@ -38,6 +40,10 @@ export class SelectService {
   getActiveOffers(): Observable<IActiveOffer[]>{
     return this.http.get<IActiveOffer[]>(this._url4)
       .pipe(catchError(this.errorHandler));
+  }
+  
+  onCallAgents(fromData: FormData):Observable<IAgentShow[]>{
+    return this.http.post<IAgentShow[]>(this._url5, fromData)
   }  
   
   errorHandler(error: HttpErrorResponse){

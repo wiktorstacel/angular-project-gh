@@ -5,6 +5,10 @@ import { HttpService } from '../http.service';
 import { IOfferFormat } from './offer-format';
 //import { ElementRef, ViewChildren } from '@angular/core';
 
+export interface BackEndMsg {
+  message: string;
+}
+
 @Component({
   selector: 'app-enter-offer',
   templateUrl: './enter-offer.component.html',
@@ -15,7 +19,7 @@ export class EnterOfferComponent implements OnInit {
   enterOfferForm: FormGroup;
   checkboxNewTownStatus = false;
   response = "";
-  responseFromSave = "";
+  responseFromSave: BackEndMsg = <any>[];
   @ViewChild('wp4Ref') wp4ElementRef!: ElementRef;
   newTownInputState: boolean = false;
   @ViewChild('checkboxRef') checkboxElementRef!: ElementRef;
@@ -207,6 +211,8 @@ export class EnterOfferComponent implements OnInit {
   
   enterOfferFormReset() {
     this.towns = this.townsAllMemory;
+    console.log(this.enterOfferForm);
+    this.responseFromSave = <any>[];
     //this.checkboxElementRef.nativeElement.checked = false; //doesn't work
     //this.newTownInputState = false;
   }

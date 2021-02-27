@@ -1,8 +1,48 @@
 <br>
 <div class="main-container">
   
+  <form [formGroup]="transactionForm" #formDirective="ngForm" (ngSubmit)="onSubmitDoTransaction(formDirective)">
   
-  <button mat-raised-button color="primary" (click)="onTransactionsShow()">Zrealizowane</button>
+    <mat-form-field class="selectTypeEdit" required>
+        <mat-select placeholder="Wybierz ofertę" formControlName="id" #id_d (selectionChange)="onChangeFillForm(id_d.value)">
+          <mat-option *ngFor="let activeOffer of activeOffers; let i=index"  [value]="activeOffer.oferta_id">{{ activeOffer.opis }}</mat-option>
+        </mat-select> 
+        <mat-error *ngIf="id?.errors?.required" >Pole jest wymagane</mat-error>
+    </mat-form-field>
+    
+    <br>
+    <mat-form-field class="selectTypeAgent" required>
+        <mat-select placeholder="Agent sprzedający" formControlName="agent" >
+          <mat-option *ngFor="let activeAgent of activeAgents;"  [value]="activeAgent.agent_id">{{ activeAgent.agentImie }} {{ activeAgent.agentNazwisko }}</mat-option>
+        </mat-select>
+        <mat-error *ngIf="agent?.errors?.required" >Pole jest wymagane</mat-error>
+    </mat-form-field>
+    
+    <br>
+    <mat-form-field class="inputClient">
+    <input matInput type="number" placeholder="Cena" formControlName="price" >
+    </mat-form-field>
+    
+    <br>
+    <mat-form-field class="inputTypeClient" color="primary" required>
+        <input matInput placeholder="Klient" formControlName="client" >
+        <mat-error *ngIf="client?.errors?.required" >Pole jest wymagane</mat-error>
+        <mat-error *ngIf="client?.errors?.minlength" >Minimum 3 znaków</mat-error>
+        <mat-error *ngIf="client?.errors?.maxlength" >Maksimum 30 znaków</mat-error>
+        <mat-error *ngIf="client?.errors?.pattern && !client?.errors?.minlength && !client?.errors?.maxlength" >Tylko litery, spacja i -</mat-error>        
+    </mat-form-field>
+    
+    <br><br>
+    <button mat-raised-button color="primary" [disabled]="!transactionForm.valid || isDisabled" type="submit" >Zrealizuj</button>
+    <button mat-raised-button color="primary" (click)="onTransactionsShow()" type="button" class="neigbourButton">Pokaż zrealizowane</button>
+    <button mat-raised-button color="accent" (click)="onTransactionTopShow()" type="button" class="neigbourButton">Rekordowa</button>
+    
+    <span>
+      {{responseFromMakeTransaction.message}}
+    </span>
+
+  </form>
+  
 </div>
 
 <div class="mat-elevation-z8">

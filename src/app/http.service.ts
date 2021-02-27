@@ -48,6 +48,15 @@ export class HttpService {
       .pipe(catchError(this.errorHandler));
   }
   
+  getTransactionTop(): Observable<ITransactionShow[]>{
+    return this.http.get<ITransactionShow[]>('/api/api/show_transaction_top.php')
+      .pipe(catchError(this.errorHandler));
+  }
+  
+  onSubmitTransaction(fromData: FormData):Observable<any>{
+    return this.http.post<any>('/api/api/make_transaction.php', fromData)
+  }
+  
   
   errorHandler(error: HttpErrorResponse){
     return throwError(error.message || "Server Error");

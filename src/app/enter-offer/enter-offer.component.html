@@ -89,7 +89,7 @@
     <br><br>
     <button mat-raised-button #submitButtonRef [disabled]="!enterOfferForm.valid || isDisabled" color="primary" type="submit">Zapisz</button>
     <button mat-raised-button color="warn" type="reset" class="resetButton" (click)="enterOfferFormReset()">Reset</button>
-    {{responseFromSave | json}}
+    {{responseFromSave.message}}
     
   </form>
   

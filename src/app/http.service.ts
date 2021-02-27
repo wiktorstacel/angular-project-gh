@@ -1,8 +1,11 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { catchError } from 'rxjs/operators';
+import { throwError } from 'rxjs';
 import { IOfferFormat } from './enter-offer/offer-format';
 import { IOfferShow } from './home/offer-show';
+import { ITransactionShow } from './transaction/transaction-show';
 //import { User } from './code1/user'; - for purpose of usage ngModel - TDF
 
 @Injectable({
@@ -39,4 +42,15 @@ export class HttpService {
   onCallOfferToEdit(fromData: FormData):Observable<IOfferFormat[]>{
     return this.http.post<IOfferFormat[]>('/api/api/insert_offer.php', fromData)
   }
+  
+  getTransactions(): Observable<ITransactionShow[]>{
+    return this.http.get<ITransactionShow[]>('/api/api/show_transactions.php')
+      .pipe(catchError(this.errorHandler));
+  }
+  
+  
+  errorHandler(error: HttpErrorResponse){
+    return throwError(error.message || "Server Error");
+  }
+  
 }

@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { HomeComponent } from './home/home.component';
 import { EnterOfferComponent } from './enter-offer/enter-offer.component';
+import { TransactionComponent } from './transaction/transaction.component';
 import { ListComponent } from './list/list.component';
 import { BasicFormComponent } from './basic-form/basic-form.component';
 import { NestedFormComponent } from './nested-form/nested-form.component';
@@ -20,10 +21,10 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 const routes: Routes = [
     { path: '', component: HomeComponent },
     { path: 'enter-offer', component: EnterOfferComponent },
+    { path: 'transaction', component: TransactionComponent },
     { path: 'list', component: ListComponent },
     { path: 'nested', component: NestedFormComponent },
     { path: 'array', component: ArrayFormComponent },
-    { path: 'valid', component: ValidFormComponent },
     { path: 'departments', component: DepartmentListComponent },
     { 
       path: 'departments/:id', 
@@ -47,6 +48,7 @@ export class AppRoutingModule { }
 export const routingComponents = [
   HomeComponent,
   EnterOfferComponent,
+  TransactionComponent,
   ListComponent,
   BasicFormComponent,
   NestedFormComponent,

@@ -9,7 +9,7 @@ import { IOfferShow } from './offer-show';
 import { MatPaginator } from '@angular/material/paginator'
 import { MatTableDataSource } from '@angular/material/table'
 
-const ELEMENT_DATA: IOfferShow[] = [];
+//const ELEMENT_DATA: IOfferShow[] = [];
 
 @Component({
   selector: 'app-home',
@@ -21,7 +21,7 @@ export class HomeComponent implements OnInit {
   response = "";
   searchOfferForm: FormGroup;
   
-  //@ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
     
   //name: string = 'hey';//clickCounter: number = 0;
   public employees: Array<{id: number, name: string, age: number}> = []; //Array<{id: number, name: string, age: number}> //Array<Object>
@@ -44,6 +44,7 @@ export class HomeComponent implements OnInit {
                 private _selectService: SelectService
               ) { 
     this.searchOfferForm = fb.group({});
+    this.paginator = <any>[];
   }
 
   ngOnInit(): void {
@@ -127,7 +128,7 @@ export class HomeComponent implements OnInit {
         console.log(res);
         //this.offersShow = new MatTableDataSource(res); //works as well
         this.offersShow.data = res; //.data!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!https://stackoverflow.com/questions/57770423/how-to-use-the-mattabledatasource-with-an-observable
-        //this.offersShow.paginator = this.paginator;
+        this.offersShow.paginator = this.paginator;
       },
       err => {
         console.log(err);

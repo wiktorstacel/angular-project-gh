@@ -21,12 +21,14 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { TextFieldModule } from '@angular/cdk/text-field';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { TransactionComponent } from './transaction/transaction.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    routingComponents
+    routingComponents,
+    TransactionComponent
   ],
   imports: [
     BrowserModule,

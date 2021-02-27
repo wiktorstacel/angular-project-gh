@@ -63,8 +63,18 @@ table {
 }
 
 .mat-column-oferta_id {
-    flex: none;
-    width: 50px;
+  flex: none;
+  width: 50px;
+}
+
+.mat-column-standard {
+  /*margin-left: 10px; */
+  padding: 10px;
+}
+
+.mat-column-button {
+  padding: 2px;
+  width:77px;
 }
 
 .input_filter {

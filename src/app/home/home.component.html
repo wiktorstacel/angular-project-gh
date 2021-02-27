@@ -74,55 +74,55 @@
     <!-- oferta_id Column -->
     <ng-container matColumnDef="oferta_id">
       <th mat-header-cell *matHeaderCellDef> id </th>
-      <td mat-cell class="mat-column-oferta_id" *matCellDef="let element"> {{element.oferta_id}} </td>
+      <td mat-cell class="mat-column-standard" *matCellDef="let element"> {{element.oferta_id}} </td>
     </ng-container>
 
     <!-- nazwa Column -->
     <ng-container matColumnDef="nazwa">
       <th mat-header-cell *matHeaderCellDef> nazwa </th>
-      <td mat-cell *matCellDef="let element"> {{element.nazwa}} </td>
+      <td mat-cell class="mat-column-standard" *matCellDef="let element"> {{element.nazwa}} </td>
     </ng-container>
 
     <!-- wojewodztwoNazwa Column -->
     <ng-container matColumnDef="wojewodztwoNazwa">
       <th mat-header-cell *matHeaderCellDef> województwo </th>
-      <td mat-cell *matCellDef="let element"> {{element.wojewodztwoNazwa}} </td>
+      <td mat-cell class="mat-column-standard" *matCellDef="let element"> {{element.wojewodztwoNazwa}} </td>
     </ng-container>
 
     <!-- miejscowoscNazwa Column -->
     <ng-container matColumnDef="miejscowoscNazwa">
       <th mat-header-cell *matHeaderCellDef> miejscowosc </th>
-      <td mat-cell *matCellDef="let element"> {{element.miejscowoscNazwa}} </td>
+      <td mat-cell class="mat-column-standard" *matCellDef="let element"> {{element.miejscowoscNazwa}} </td>
     </ng-container>
 
     <!-- ulica Column -->
     <ng-container matColumnDef="ulica">
       <th mat-header-cell *matHeaderCellDef> adres </th>
-      <td mat-cell *matCellDef="let element"> {{element.ulica}} </td>
+      <td mat-cell class="mat-column-standard" *matCellDef="let element"> {{element.ulica}} </td>
     </ng-container>
 
     <!-- powierzchnia Column -->
     <ng-container matColumnDef="powierzchnia">
       <th mat-header-cell *matHeaderCellDef> m<sup>2</sup> </th>
-      <td mat-cell *matCellDef="let element"> {{element.powierzchnia}} </td>
+      <td mat-cell class="mat-column-standard" *matCellDef="let element"> {{element.powierzchnia}} </td>
     </ng-container>
 
     <!-- cena Column -->
     <ng-container matColumnDef="cena">
       <th mat-header-cell *matHeaderCellDef> cena </th>
-      <td mat-cell *matCellDef="let element"> {{element.cena}} </td>
+      <td mat-cell class="mat-column-standard" *matCellDef="let element"> {{element.cena}} </td>
     </ng-container>
 
     <!-- opis Column -->
     <ng-container matColumnDef="opis">
       <th mat-header-cell *matHeaderCellDef> opis </th>
-      <td mat-cell *matCellDef="let element"> {{element.opis}} </td>
+      <td mat-cell class="mat-column-standard" *matCellDef="let element"> {{element.opis}} </td>
     </ng-container>
 
     <!-- zakup Column -->
     <ng-container matColumnDef="zakup">
       <th mat-header-cell *matHeaderCellDef> zakup </th>
-      <td mat-cell *matCellDef="let element">
+      <td class="mat-column-button" mat-cell *matCellDef="let element">
         <button mat-raised-button (click)="buyRow(element.oferta_id)"> Zakup </button>
       </td>
     </ng-container>
@@ -130,7 +130,7 @@
     <!-- delete Column -->
     <ng-container matColumnDef="usun">
       <th mat-header-cell *matHeaderCellDef> usuń </th>
-      <td mat-cell *matCellDef="let element">
+      <td class="mat-column-button" mat-cell *matCellDef="let element">
         <button mat-raised-button (click)="deleteRow(element.oferta_id)"> Usuń </button>
       </td>
     </ng-container>
@@ -138,9 +138,9 @@
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
-  <mat-paginator  showFirstLastButton></mat-paginator>  
+  <mat-paginator [pageSizeOptions]="[10, 20, 30, 40, 50]" showFirstLastButton></mat-paginator>  
 </div>
-<!<!-- [pageSizeOption]="[5, 10, 20]" -->
+<!--  -->
 <!--oferty z backend:<br>
 {{ offersShow | json }}-->
 

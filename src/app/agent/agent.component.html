@@ -47,8 +47,8 @@
     
     <form [formGroup]="statisticAgentForm" #formDirective="ngForm" (ngSubmit)="onSubmitAgentStatistic()">
     
-      <mat-form-field class="selectTypeEmployeeStat" required>
-          <mat-select placeholder="Pracownik" formControlName="employee_stat" >
+      <mat-form-field class="selectTypePosition" required >
+          <mat-select placeholder="Pracownik" formControlName="employee_stat" (selectionChange)="onSubmitAgentStatistic()">
             <mat-option [value]="0">Wszyscy</mat-option>
             <mat-option *ngFor="let activeAgent of activeAgents;"  [value]="activeAgent.agent_id">{{ activeAgent.agentImie }} {{ activeAgent.agentNazwisko }}</mat-option>
           </mat-select>
@@ -56,8 +56,8 @@
       </mat-form-field>
         
       <br>
-      <mat-form-field class="selectTypePositionStat" required>
-          <mat-select placeholder="Stanowisko" formControlName="position_stat" >
+      <mat-form-field class="selectTypePosition" required>
+          <mat-select placeholder="Stanowisko" formControlName="position_stat" (selectionChange)="onSubmitAgentStatistic()">
             <mat-option [value]="0">Wszystkie</mat-option>
             <mat-option *ngFor="let agentPosition of agentPositions;"  [value]="agentPosition.stanowisko_id">{{ agentPosition.nazwa }}</mat-option>
           </mat-select>
@@ -67,30 +67,91 @@
       <br>
       <mat-form-field class="inputTypeDate" required>
         <mat-label>Wyniki od</mat-label>
-        <input matInput [matDatepicker]="myDatePicker1" [min]="minDate" [max]="maxDate" formControlName="start_date">
+        <input matInput [matDatepicker]="myDatePicker1" [min]="minDate" [max]="maxDate" formControlName="start_date" (change)="onSubmitAgentStatistic()">
         <mat-datepicker-toggle matSuffix [for]="myDatePicker1"></mat-datepicker-toggle>
         <mat-datepicker #myDatePicker1></mat-datepicker>
       </mat-form-field>
       
       <mat-form-field class="inputTypeDate" required>
         <mat-label>Wyniki do</mat-label>
-        <input matInput [matDatepicker]="myDatePicker2" [min]="minDate" [max]="maxDate" formControlName="end_date">
+        <input matInput [matDatepicker]="myDatePicker2" [min]="minDate" [max]="maxDate" formControlName="end_date" (change)="onSubmitAgentStatistic()">
         <mat-datepicker-toggle matSuffix [for]="myDatePicker2"></mat-datepicker-toggle>
         <mat-datepicker #myDatePicker2></mat-datepicker>
       </mat-form-field>
       
-      <mat-radio-group aria-labelledby="example-radio-group-label" class="stat-radio-group" formControlName="type_stat" color="primary" required>
+      <mat-radio-group aria-labelledby="example-radio-group-label" class="stat-radio-group" formControlName="type_stat" color="primary" (change)="onSubmitAgentStatistic()" required>
         <mat-radio-button class="example-radio-button" *ngFor="let type_stat of type_stats; let i=index" [value]="i">
           {{type_stat}}
         </mat-radio-button>
       </mat-radio-group>
       
       <button mat-raised-button color="primary" [disabled]="!statisticAgentForm.valid" type="submit" >Pokaż</button>
-    
+
     </form>
     
   </div>
-  
 
+  <button mat-raised-button color="primary" type="button" (click)="activeAgentList()" >Lista pracowników</button>
+  <button mat-raised-button color="warn" type="button" (click)="noactiveAgentList()" class="neigbourButton" >Byli pracownicy</button>
   
+</div>
+
+
+<div class="mat-elevation-z8">
+  
+  <table mat-table [dataSource]="Show" >
+    <!-- agent_id Column -->
+    <ng-container matColumnDef="agent_id">
+      <th mat-header-cell *matHeaderCellDef> id </th>
+      <td mat-cell class="mat-column-standard" *matCellDef="let element"> {{element.agent_id}} </td>
+    </ng-container>
+
+    <!-- agentImie Column -->
+    <ng-container matColumnDef="agentImie">
+      <th mat-header-cell *matHeaderCellDef> imię </th>
+      <td mat-cell class="mat-column-standard" *matCellDef="let element"> {{element.agentImie}} </td>
+    </ng-container>
+
+    <!-- agentNazwisko Column -->
+    <ng-container matColumnDef="agentNazwisko">
+      <th mat-header-cell *matHeaderCellDef> nazwisko </th>
+      <td mat-cell class="mat-column-standard" *matCellDef="let element"> {{element.agentNazwisko}} </td>
+    </ng-container>
+
+    <!-- stanowiskoNazwa Column -->
+    <ng-container matColumnDef="stanowiskoNazwa">
+      <th mat-header-cell *matHeaderCellDef> stanowisko </th>
+      <td mat-cell class="mat-column-standard" *matCellDef="let element"> {{element.stanowiskoNazwa}} </td>
+    </ng-container>
+
+    <!-- sredniaSprzedaz Column -->
+    <ng-container matColumnDef="sredniaSprzedaz">
+      <th mat-header-cell *matHeaderCellDef> średnia sprzedaży </th>
+      <td mat-cell class="mat-column-standard" *matCellDef="let element"> {{element.sredniaSprzedaz}} </td>
+    </ng-container>
+
+    <!-- liczbaTransakcji Column -->
+    <ng-container matColumnDef="liczbaTransakcji">
+      <th mat-header-cell *matHeaderCellDef> ilość transakcji </th>
+      <td mat-cell class="mat-column-standard" *matCellDef="let element"> {{element.liczbaTransakcji}} </td>
+    </ng-container>
+    
+    <!-- sumaSprzedazy Column -->
+    <ng-container matColumnDef="sumaSprzedazy">
+      <th mat-header-cell *matHeaderCellDef> sprzedaż(ogółem) </th>
+      <td mat-cell class="mat-column-standard" *matCellDef="let element"> {{element.sumaSprzedazy}} </td>
+    </ng-container>
+
+    <!-- cancel Column -->
+    <ng-container matColumnDef="anuluj">
+      <th mat-header-cell *matHeaderCellDef> usuń </th>
+      <td class="mat-column-button" mat-cell *matCellDef="let element">
+        <button mat-raised-button > Anuluj </button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+ 
 </div>

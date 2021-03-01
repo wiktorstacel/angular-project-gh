@@ -4,6 +4,8 @@ import { SelectService } from '../home/select.service';
 import { FormBuilder, FormGroup, FormControl, Validators, FormGroupDirective } from '@angular/forms'
 import { IPositionAgent } from './position-agent';
 import { IAgentShow } from '../transaction/agent-show';
+import { IStatFormat } from './stat-format';
+import { MatTableDataSource } from '@angular/material/table'
 
 export interface BackEndMsg {
   message: string;
@@ -24,11 +26,16 @@ export class AgentComponent implements OnInit {
   responseFromSaveAgent: BackEndMsg = <any>[];
   public agentPositions: Array<IPositionAgent> = [];
   public activeAgents: Array<IAgentShow> = [];
+  public noactiveAgents: Array<IAgentShow> = [];
   //startDate = new FormControl(new Date(2010, 0, 1)); in case you would like to connect like this in html:[formControl]="startDate"
   startDate = new Date(2010, 0, 1);
   minDate = new Date(2009, 12, 1);
   maxDate = new Date();
   type_stats: string[] = ['Średnia sprzedaż', 'Sprzedaż ogółem', 'Liczba transakcji'];
+  
+  Show: any;
+  statisticShow = new MatTableDataSource<IStatFormat>();  
+  displayedColumns: string[] = ['agent_id','agentImie','agentNazwisko','stanowiskoNazwa','sumaSprzedazy','liczbaTransakcji','sredniaSprzedaz'];
 
   constructor(
                 private _http: HttpService,
@@ -115,14 +122,36 @@ export class AgentComponent implements OnInit {
     this._http.onSubmitShowStats(this.statisticAgentForm.value).subscribe(
       res => {
         console.log(res);
-        //this.offersShow = new MatTableDataSource(res); //works as well
-        //this.offersShow.data = res; //.data!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!https://stackoverflow.com/questions/57770423/how-to-use-the-mattabledatasource-with-an-observable
+        this.statisticShow.data = res;
         //this.offersShow.paginator = this.paginator;
       },
       err => {
         console.log(err);
+      },
+      () => {//CALLBACK
+        this.displayedColumns = ['agent_id','agentImie','agentNazwisko','stanowiskoNazwa','sumaSprzedazy','liczbaTransakcji','sredniaSprzedaz'];
+        this.Show = this.statisticShow;
       }
     )
+  }
+  
+  activeAgentList() {
+    console.log(this.activeAgents);
+    this.displayedColumns = ['agent_id','agentImie','agentNazwisko','stanowiskoNazwa'];
+    this.Show = this.activeAgents;
+  }
+  
+  noactiveAgentList() {
+    const formData : FormData = new FormData();
+    formData.append('status', '0');
+    this._selectService.onCallAgents(formData).subscribe(
+        data => {this.noactiveAgents = data,console.log(this.noactiveAgents);},
+        error => this.errorMsg = error,
+        () => {//CALLBACK
+          this.displayedColumns = ['agent_id','agentImie','agentNazwisko','stanowiskoNazwa'];
+          this.Show = this.noactiveAgents;
+        }
+    );
   }
   
   get name() {return this.insertAgentForm.get('name');}

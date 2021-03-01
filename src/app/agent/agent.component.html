@@ -1,0 +1,96 @@
+<br>
+<div class="main-container">
+  
+  <div class="section-add-agent">
+    <h4>Dodaj pracownika:</h4>
+    
+    <form [formGroup]="insertAgentForm" #formDirective="ngForm" (ngSubmit)="onSubmitInsertAgent(formDirective)">
+    
+      <mat-form-field class="inputTypeName" color="primary" required>
+          <input matInput placeholder="Imię" formControlName="name" >
+          <mat-error *ngIf="name?.errors?.required" >Pole jest wymagane</mat-error>
+          <mat-error *ngIf="name?.errors?.minlength" >Minimum 3 znaków</mat-error>
+          <mat-error *ngIf="name?.errors?.maxlength" >Maksimum 20 znaków</mat-error>
+          <mat-error *ngIf="name?.errors?.pattern && !name?.errors?.minlength && !name?.errors?.maxlength" >Tylko litery, spacja i -</mat-error>        
+      </mat-form-field>
+      
+      <br>
+      <mat-form-field class="inputTypeSurname" color="primary" required>
+          <input matInput placeholder="Nazwisko" formControlName="surname" >
+          <mat-error *ngIf="surname?.errors?.required" >Pole jest wymagane</mat-error>
+          <mat-error *ngIf="surname?.errors?.minlength" >Minimum 3 znaków</mat-error>
+          <mat-error *ngIf="surname?.errors?.maxlength" >Maksimum 20 znaków</mat-error>
+          <mat-error *ngIf="surname?.errors?.pattern && !surname?.errors?.minlength && !surname?.errors?.maxlength" >Tylko litery, spacja i -</mat-error>        
+      </mat-form-field>
+      
+      <br>
+      <mat-form-field class="selectTypePosition" required>
+          <mat-select placeholder="Stanowisko" formControlName="position" >
+            <mat-option *ngFor="let agentPosition of agentPositions;"  [value]="agentPosition.stanowisko_id">{{ agentPosition.nazwa }}</mat-option>
+          </mat-select>
+          <mat-error *ngIf="position?.errors?.required" >Pole jest wymagane</mat-error>
+      </mat-form-field>
+      
+      <br>
+      <button mat-raised-button color="primary" [disabled]="!insertAgentForm.valid || isDisabled" type="submit" >Dodaj</button>
+    
+      <span>
+      {{responseFromSaveAgent.message}}
+      </span>
+      
+    </form>
+    
+  </div>
+  
+  <div class="section-statistic">
+    <h4>Wyniki sprzedaży:</h4>
+    
+    <form [formGroup]="statisticAgentForm" #formDirective="ngForm" (ngSubmit)="onSubmitAgentStatistic()">
+    
+      <mat-form-field class="selectTypeEmployeeStat" required>
+          <mat-select placeholder="Pracownik" formControlName="employee_stat" >
+            <mat-option [value]="0">Wszyscy</mat-option>
+            <mat-option *ngFor="let activeAgent of activeAgents;"  [value]="activeAgent.agent_id">{{ activeAgent.agentImie }} {{ activeAgent.agentNazwisko }}</mat-option>
+          </mat-select>
+          <mat-error *ngIf="employee_stat?.errors?.required" >Pole jest wymagane</mat-error>
+      </mat-form-field>
+        
+      <br>
+      <mat-form-field class="selectTypePositionStat" required>
+          <mat-select placeholder="Stanowisko" formControlName="position_stat" >
+            <mat-option [value]="0">Wszystkie</mat-option>
+            <mat-option *ngFor="let agentPosition of agentPositions;"  [value]="agentPosition.stanowisko_id">{{ agentPosition.nazwa }}</mat-option>
+          </mat-select>
+          <mat-error *ngIf="position_stat?.errors?.required" >Pole jest wymagane</mat-error>
+      </mat-form-field>
+      
+      <br>
+      <mat-form-field class="inputTypeDate" required>
+        <mat-label>Wyniki od</mat-label>
+        <input matInput [matDatepicker]="myDatePicker1" [min]="minDate" [max]="maxDate" formControlName="start_date">
+        <mat-datepicker-toggle matSuffix [for]="myDatePicker1"></mat-datepicker-toggle>
+        <mat-datepicker #myDatePicker1></mat-datepicker>
+      </mat-form-field>
+      
+      <mat-form-field class="inputTypeDate" required>
+        <mat-label>Wyniki do</mat-label>
+        <input matInput [matDatepicker]="myDatePicker2" [min]="minDate" [max]="maxDate" formControlName="end_date">
+        <mat-datepicker-toggle matSuffix [for]="myDatePicker2"></mat-datepicker-toggle>
+        <mat-datepicker #myDatePicker2></mat-datepicker>
+      </mat-form-field>
+      
+      <mat-radio-group aria-labelledby="example-radio-group-label" class="stat-radio-group" formControlName="type_stat" color="primary" required>
+        <mat-radio-button class="example-radio-button" *ngFor="let type_stat of type_stats; let i=index" [value]="i">
+          {{type_stat}}
+        </mat-radio-button>
+      </mat-radio-group>
+      
+      <button mat-raised-button color="primary" [disabled]="!statisticAgentForm.valid" type="submit" >Pokaż</button>
+    
+    </form>
+    
+  </div>
+  
+
+  
+</div>

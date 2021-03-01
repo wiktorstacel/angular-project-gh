@@ -57,6 +57,13 @@ export class HttpService {
     return this.http.post<any>('/api/api/make_transaction.php', fromData)
   }
   
+  onSubmitSaveAgent(fromData: FormData):Observable<any>{
+    return this.http.post<any>('/api/api/save_agent.php', fromData)
+  }
+  //onSubmitShowStats
+  onSubmitShowStats(fromData: FormData):Observable<any>{
+    return this.http.post<any>('/api/api/show_agent_stat.php', fromData)
+  }  
   
   errorHandler(error: HttpErrorResponse){
     return throwError(error.message || "Server Error");

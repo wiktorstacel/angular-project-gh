@@ -9,7 +9,8 @@
 
 <br>
 <div class="main-container">
-      
+  <h4>Wyszukaj ofertę:</h4>
+        
   <form [formGroup]="searchOfferForm" (ngSubmit)="onSubmitShowOffers()">
     
     <mat-form-field class="selectType1" >
@@ -67,7 +68,7 @@
 <div class="mat-elevation-z8">
   
   <mat-form-field class="input_filter">
-    <input matInput placeholder="Słowa kluczowe" (keyup)="applyFilter('Miesz')"><!-- (keyup)="applyFilter($event.target.value) -->
+    <input matInput placeholder="Wyszukaj..." (keyup)="applyFilter($event); onSubmitShowOffers()"><!-- (keyup)="applyFilter($event.target.value) -->
   </mat-form-field>
   
   <table mat-table [dataSource]="offersShow" >

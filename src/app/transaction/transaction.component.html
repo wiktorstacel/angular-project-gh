@@ -1,5 +1,6 @@
 <br>
 <div class="main-container">
+  <h4>Zawarcie transakcji:</h4>
   
   <form [formGroup]="transactionForm" #formDirective="ngForm" (ngSubmit)="onSubmitDoTransaction(formDirective)">
   
@@ -48,7 +49,7 @@
 <div class="mat-elevation-z8">
   
   <mat-form-field class="input_filter">
-    <input matInput placeholder="Słowa kluczowe" (keyup)="applyFilter('Miesz')"><!-- (keyup)="applyFilter($event.target.value) -->
+    <input matInput placeholder="Wyszukaj..." (keyup)="applyFilter($event); onTransactionsShow()"><!-- (keyup)="applyFilter($event.target.value) -->
   </mat-form-field>
   
   <table mat-table [dataSource]="transactionsShow" >
@@ -67,7 +68,7 @@
     <!-- adres Column -->
     <ng-container matColumnDef="ofertaUlica">
       <th mat-header-cell *matHeaderCellDef> adres </th>
-      <td mat-cell class="mat-column-standard" *matCellDef="let element"> {{element.ofertaUlica}} </td>
+      <td mat-cell class="mat-column-standard" *matCellDef="let element"> {{element.miejscowoscNazwa}}, {{element.ofertaUlica}} </td>
     </ng-container>
 
     <!-- pracownik Column -->

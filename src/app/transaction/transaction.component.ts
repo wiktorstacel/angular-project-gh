@@ -140,8 +140,13 @@ export class TransactionComponent implements OnInit {
     
   }
   
-  applyFilter(filterValue: string) {
-    this.transactionsShow.filter = filterValue.trim().toLowerCase();
+  //https://stackoverflow.com/questions/42066421/property-value-does-not-exist-on-type-eventtarget
+  applyFilter(event: KeyboardEvent) {
+    //console.log(event);
+    const target = event.target as HTMLTextAreaElement;
+    var activeInput = target.value;
+    //console.log(activeInput);
+    this.transactionsShow.filter = activeInput.trim().toLowerCase();
   }
   
   get id() {return this.transactionForm.get('id');}

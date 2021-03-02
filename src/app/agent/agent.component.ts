@@ -137,7 +137,7 @@ export class AgentComponent implements OnInit {
   
   activeAgentList() {
     console.log(this.activeAgents);
-    this.displayedColumns = ['agent_id','agentImie','agentNazwisko','stanowiskoNazwa'];
+    this.displayedColumns = ['agent_id','agentImie','agentNazwisko','stanowiskoNazwa','zwolnij'];
     this.Show = this.activeAgents;
   }
   
@@ -148,7 +148,7 @@ export class AgentComponent implements OnInit {
         data => {this.noactiveAgents = data,console.log(this.noactiveAgents);},
         error => this.errorMsg = error,
         () => {//CALLBACK
-          this.displayedColumns = ['agent_id','agentImie','agentNazwisko','stanowiskoNazwa'];
+          this.displayedColumns = ['agent_id','agentImie','agentNazwisko','stanowiskoNazwa','przywroc'];
           this.Show = this.noactiveAgents;
         }
     );

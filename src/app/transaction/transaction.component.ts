@@ -6,6 +6,9 @@ import { ITransactionShow } from './transaction-show';
 import { IAgentShow } from './agent-show';
 import { MatPaginator } from '@angular/material/paginator'
 import { MatTableDataSource } from '@angular/material/table'
+import { MatDialog } from '@angular/material/dialog'
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { DialogCancelComponent } from './dialog-cancel/dialog-cancel.component'
 
 export interface BackEndMsg {
   message: string;
@@ -25,6 +28,7 @@ export class TransactionComponent implements OnInit {
   isDisabled = false;
   public errorMsg: any;
   responseFromMakeTransaction: BackEndMsg = <any>[];
+  responseFromCancelTransaction: BackEndMsg = <any>[];
   public activeOffers: Array<{oferta_id: number, opis: string, cena: number}> = [];
   public activeAgents: Array<IAgentShow> = [];
   transactionsShow = new MatTableDataSource<ITransactionShow>();  
@@ -33,7 +37,9 @@ export class TransactionComponent implements OnInit {
   constructor(                
                 private _http: HttpService,
                 private _selectService: SelectService, 
-                private fb: FormBuilder
+                private fb: FormBuilder,
+                public dialog: MatDialog,
+                private snackBar: MatSnackBar
               ) {
     this.transactionForm = fb.group({});
     this.paginator = <any>[];
@@ -136,8 +142,24 @@ export class TransactionComponent implements OnInit {
     )
   }
   
-  cancelTransaction(id: number) {
-    
+  cancelTransaction(id: string) {
+    let dialogRef = this.dialog.open(DialogCancelComponent, {data: {nr: id}});   
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+      if(result == 'true')
+      {
+        const formData : FormData = new FormData();
+        formData.append('id', id);
+        this._http.onSubmitCancelTransaction(formData).subscribe(
+            data => this.responseFromCancelTransaction = data,
+            error => {this.errorMsg = error; console.log(error);},
+            () => {
+              this.onTransactionsShow();
+              this.snackBar.open(this.responseFromCancelTransaction.message, 'Zamknij', {duration: 5000});
+            }
+        );
+      }
+    });
   }
   
   //https://stackoverflow.com/questions/42066421/property-value-does-not-exist-on-type-eventtarget

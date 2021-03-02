@@ -142,13 +142,22 @@
       <td mat-cell class="mat-column-standard" *matCellDef="let element"> {{element.sumaSprzedazy}} </td>
     </ng-container>
 
-    <!-- cancel Column -->
-    <ng-container matColumnDef="anuluj">
-      <th mat-header-cell *matHeaderCellDef> usuń </th>
+    <!-- fire employee Column -->
+    <ng-container matColumnDef="zwolnij">
+      <th mat-header-cell *matHeaderCellDef> zwolnij </th>
       <td class="mat-column-button" mat-cell *matCellDef="let element">
-        <button mat-raised-button > Anuluj </button>
+        <button mat-icon-button color="warn" ><mat-icon>call_split</mat-icon></button>
       </td>
     </ng-container>
+    
+    <!-- hire back employee Column -->
+    <ng-container matColumnDef="przywroc">
+      <th mat-header-cell *matHeaderCellDef> przywróć </th>
+      <td class="mat-column-button" mat-cell *matCellDef="let element">
+        <button mat-icon-button color="primary" ><mat-icon>redo</mat-icon></button>
+      </td>
+    </ng-container>
+    
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>

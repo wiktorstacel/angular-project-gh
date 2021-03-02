@@ -26,16 +26,19 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 import { MAT_DATE_LOCALE } from '@angular/material/core';
-import { DialogDeleteComponent } from './home/dialog-delete/dialog-delete.component'
+import { DialogDeleteComponent } from './home/dialog-delete/dialog-delete.component';
+import { DialogCancelComponent } from './transaction/dialog-cancel/dialog-cancel.component'
 
 
 @NgModule({
   declarations: [
     AppComponent,
     routingComponents,
-    DialogDeleteComponent
+    DialogDeleteComponent,
+    DialogCancelComponent
   ],
   entryComponents: [DialogDeleteComponent],
   imports: [
@@ -58,7 +61,8 @@ import { DialogDeleteComponent } from './home/dialog-delete/dialog-delete.compon
     MatDatepickerModule,
     MatNativeDateModule,
     MatIconModule,
-    MatDialogModule
+    MatDialogModule,
+    MatSnackBarModule
   ],
   providers: [
     HttpService,

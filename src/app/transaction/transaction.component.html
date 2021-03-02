@@ -97,9 +97,9 @@
 
     <!-- cancel Column -->
     <ng-container matColumnDef="anuluj">
-      <th mat-header-cell *matHeaderCellDef> usuń </th>
+      <th mat-header-cell *matHeaderCellDef> anuluj </th>
       <td class="mat-column-button" mat-cell *matCellDef="let element">
-        <button mat-raised-button (click)="cancelTransaction(element.transakcja_id)"> Anuluj </button>
+        <button mat-icon-button color="warn" (click)="cancelTransaction(element.tranzakcja_id)"><mat-icon>undo</mat-icon></button>
       </td>
     </ng-container>
 

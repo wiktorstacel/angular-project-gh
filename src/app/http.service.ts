@@ -69,6 +69,10 @@ export class HttpService {
     return this.http.post<any>('/api/api/delete_offer.php', fromData)
   }  
   
+  onSubmitCancelTransaction(fromData: FormData):Observable<any>{
+    return this.http.post<any>('/api/api/cancel_transaction.php', fromData)
+  }
+  
   errorHandler(error: HttpErrorResponse){
     return throwError(error.message || "Server Error");
   }

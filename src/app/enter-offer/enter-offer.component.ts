@@ -169,6 +169,9 @@ export class EnterOfferComponent implements OnInit {
       },
       () => { //CALBACK1
         //alert('callback1');
+        setTimeout(()=>{
+          this.responseFromSave = <any>[];
+        }, 10000);
         //reload of town list in case new one was introduced
         this._selectService.getTowns().subscribe(
         data => {this.townsAllMemory = data},

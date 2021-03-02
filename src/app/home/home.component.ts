@@ -9,6 +9,7 @@ import { IOfferShow } from './offer-show';
 import { MatPaginator } from '@angular/material/paginator'
 import { MatTableDataSource } from '@angular/material/table'
 import { MatDialog } from '@angular/material/dialog'
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { DialogDeleteComponent } from './dialog-delete/dialog-delete.component'
 
 //const ELEMENT_DATA: IOfferShow[] = [];
@@ -48,7 +49,8 @@ export class HomeComponent implements OnInit {
                 private _http: HttpService, 
                 private fb: FormBuilder, 
                 private _selectService: SelectService,
-                public dialog: MatDialog
+                public dialog: MatDialog,
+                private snackBar: MatSnackBar
               ) { 
     this.searchOfferForm = fb.group({});
     this.paginator = <any>[];
@@ -168,7 +170,7 @@ export class HomeComponent implements OnInit {
   }
   
   deleteRow(id: string) {
-    console.log(id);
+    //console.log(id);
     let dialogRef = this.dialog.open(DialogDeleteComponent, {data: {nr: id}});
     
     dialogRef.afterClosed().subscribe(result => {
@@ -179,7 +181,11 @@ export class HomeComponent implements OnInit {
         formData.append('id', id);
         this._http.onSubmitDeleteOffer(formData).subscribe(
             data => this.responseFromDelete = data,
-            error => this.errorMsg = error
+            error => {this.errorMsg = error; console.log(error);},
+            () => {
+              this.onSubmitShowOffers();
+              this.snackBar.open(this.responseFromDelete.message, 'Zamknij', {duration: 5000});
+            }
         );
       }
     });

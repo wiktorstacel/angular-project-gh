@@ -28,53 +28,53 @@ export class HttpService {
   }
   
   onSendShowOffers(fromData: FormData):Observable<any>{
-    return this.http.post<any>('/api/api/show_offers.php', fromData)
+    return this.http.post<any>('/api/show_offers.php', fromData)
   }
   
   onSubmitShowOffers(fromData: FormData):Observable<IOfferShow[]>{
-    return this.http.post<IOfferShow[]>('/api/api/show_offers.php', fromData)
+    return this.http.post<IOfferShow[]>('/api/show_offers.php', fromData)
   }
   
   onSubmitSaveOffers(fromData: FormData):Observable<any>{
-    return this.http.post<any>('/api/api/save_offer.php', fromData)
+    return this.http.post<any>('/api/save_offer.php', fromData)
   }
   
   onCallOfferToEdit(fromData: FormData):Observable<IOfferFormat[]>{
-    return this.http.post<IOfferFormat[]>('/api/api/insert_offer.php', fromData)
+    return this.http.post<IOfferFormat[]>('/api/insert_offer.php', fromData)
   }
   
   getTransactions(): Observable<ITransactionShow[]>{
-    return this.http.get<ITransactionShow[]>('/api/api/show_transactions.php')
+    return this.http.get<ITransactionShow[]>('/api/show_transactions.php')
       .pipe(catchError(this.errorHandler));
   }
   
   getTransactionTop(): Observable<ITransactionShow[]>{
-    return this.http.get<ITransactionShow[]>('/api/api/show_transaction_top.php')
+    return this.http.get<ITransactionShow[]>('/api/show_transaction_top.php')
       .pipe(catchError(this.errorHandler));
   }
   
   onSubmitTransaction(fromData: FormData):Observable<any>{
-    return this.http.post<any>('/api/api/make_transaction.php', fromData)
+    return this.http.post<any>('/api/make_transaction.php', fromData)
   }
   
   onSubmitSaveAgent(fromData: FormData):Observable<any>{
-    return this.http.post<any>('/api/api/save_agent.php', fromData)
+    return this.http.post<any>('/api/save_agent.php', fromData)
   }
   
   onSubmitShowStats(fromData: FormData):Observable<any>{
-    return this.http.post<any>('/api/api/show_agent_stat.php', fromData)
+    return this.http.post<any>('/api/show_agent_stat.php', fromData)
   }
   
   onSubmitDeleteOffer(fromData: FormData):Observable<any>{
-    return this.http.post<any>('/api/api/delete_offer.php', fromData)
+    return this.http.post<any>('/api/delete_offer.php', fromData)
   }  
   
   onSubmitCancelTransaction(fromData: FormData):Observable<any>{
-    return this.http.post<any>('/api/api/cancel_transaction.php', fromData)
+    return this.http.post<any>('/api/cancel_transaction.php', fromData)
   }
   
   onSubmitChangeAgentStatus(fromData: FormData):Observable<any>{
-    return this.http.post<any>('/api/api/status_agent.php', fromData)
+    return this.http.post<any>('/api/status_agent.php', fromData)
   }
   
   errorHandler(error: HttpErrorResponse){

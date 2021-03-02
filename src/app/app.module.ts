@@ -33,6 +33,8 @@ import { DialogDeleteComponent } from './home/dialog-delete/dialog-delete.compon
 import { DialogCancelComponent } from './transaction/dialog-cancel/dialog-cancel.component';
 import { DialogStatusComponent } from './agent/dialog-status/dialog-status.component';
 
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
+
 
 @NgModule({
   declarations: [
@@ -69,7 +71,8 @@ import { DialogStatusComponent } from './agent/dialog-status/dialog-status.compo
   providers: [
     HttpService,
     EmployeeService,
-    { provide: MAT_DATE_LOCALE, useValue: 'en-GB' }
+    { provide: MAT_DATE_LOCALE, useValue: 'en-GB' },
+    { provide: LocationStrategy, useClass: HashLocationStrategy}
   ],
   bootstrap: [AppComponent]
 })

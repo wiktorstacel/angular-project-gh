@@ -15,12 +15,12 @@ import { throwError } from 'rxjs';
 })
 export class SelectService {
   
-  private _url1: string = '/api/api/offer_types.php';
-  private _url2: string = '/api/api/voivodeships.php';
-  private _url3: string = '/api/api/towns.php';
-  private _url4: string = '/api/api/active_offers.php';
-  private _url5: string = '/api/api/show_agents.php';
-  private _url6: string = '/api/api/agent_positions.php';
+  private _url1: string = '/api/offer_types.php';
+  private _url2: string = '/api/voivodeships.php';
+  private _url3: string = '/api/towns.php';
+  private _url4: string = '/api/active_offers.php';
+  private _url5: string = '/api/show_agents.php';
+  private _url6: string = '/api/agent_positions.php';
 
   constructor(private http: HttpClient) { }
   

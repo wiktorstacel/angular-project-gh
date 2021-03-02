@@ -72,10 +72,10 @@ export class HomeComponent implements OnInit {
     
     
     //this.employees = this._employeeService.getEmployees(); - it was to get data that were declareted in method in employee.service
-    this._employeeService.getEmployees().subscribe(
+    /*this._employeeService.getEmployees().subscribe(
         data => this.employees = data,
         error => this.errorMsg = error
-    );
+    );*/
     
     this._selectService.getOfferTypes().subscribe(
         data => this.offerTypes = data,

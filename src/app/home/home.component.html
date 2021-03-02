@@ -119,27 +119,49 @@
       <th mat-header-cell *matHeaderCellDef> opis </th>
       <td mat-cell class="mat-column-standard" *matCellDef="let element"> {{element.opis}} </td>
     </ng-container>
+    
+    <!-- actions Column -->
+    <ng-container matColumnDef="zakup">
+      <th mat-header-cell *matHeaderCellDef> zakup  </th>
+      <td class="mat-column-button" mat-cell *matCellDef="let element">
+        <button mat-icon-button color="primary" [disabled]="!element.stan"><mat-icon>event_note</mat-icon></button>
+      </td>
+    </ng-container>
+    
+    <ng-container matColumnDef="edycja">
+      <th mat-header-cell *matHeaderCellDef> edycja </th>
+      <td class="mat-column-button" mat-cell *matCellDef="let element">
+        <button mat-icon-button [disabled]="!element.stan" ><mat-icon>launch</mat-icon></button>
+      </td>
+    </ng-container>
+        
+    <ng-container matColumnDef="usun">
+      <th mat-header-cell *matHeaderCellDef> usuń </th>
+      <td class="mat-column-button" mat-cell *matCellDef="let element">
+        <button mat-icon-button color="warn" [disabled]="!element.stan" (click)="deleteRow(element.oferta_id)"><mat-icon>delete_outline</mat-icon></button>
+      </td>
+    </ng-container>
 
     <!-- zakup Column -->
-    <ng-container matColumnDef="zakup">
+    <!--<ng-container matColumnDef="zakup">
       <th mat-header-cell *matHeaderCellDef> zakup </th>
       <td class="mat-column-button" mat-cell *matCellDef="let element">
         <button mat-raised-button (click)="buyRow(element.oferta_id)"> Zakup </button>
       </td>
-    </ng-container>
+    </ng-container>-->
 
     <!-- delete Column -->
-    <ng-container matColumnDef="usun">
+    <!--<ng-container matColumnDef="usun">
       <th mat-header-cell *matHeaderCellDef> usuń </th>
       <td class="mat-column-button" mat-cell *matCellDef="let element">
         <button mat-raised-button (click)="deleteRow(element.oferta_id)"> Usuń </button>
       </td>
-    </ng-container>
+    </ng-container>-->
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
-  <mat-paginator [pageSizeOptions]="[10, 20, 30, 40, 50]" showFirstLastButton></mat-paginator>  
+  <mat-paginator [pageSizeOptions]="[10, 20, 30, 40, 50]" showFirstLastButtons></mat-paginator>  
 </div>
 <!--  -->
 <!--oferty z backend:<br>

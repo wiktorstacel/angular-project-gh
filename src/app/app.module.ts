@@ -24,15 +24,20 @@ import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
+import { MatIconModule } from '@angular/material/icon';
+import { MatDialogModule } from '@angular/material/dialog';
 
-import { MAT_DATE_LOCALE } from '@angular/material/core'
+import { MAT_DATE_LOCALE } from '@angular/material/core';
+import { DialogDeleteComponent } from './home/dialog-delete/dialog-delete.component'
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    routingComponents
+    routingComponents,
+    DialogDeleteComponent
   ],
+  entryComponents: [DialogDeleteComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -51,7 +56,9 @@ import { MAT_DATE_LOCALE } from '@angular/material/core'
     MatTableModule,
     MatPaginatorModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    MatIconModule,
+    MatDialogModule
   ],
   providers: [
     HttpService,

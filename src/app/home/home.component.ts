@@ -8,8 +8,13 @@ import { FormBuilder, FormGroup } from '@angular/forms'
 import { IOfferShow } from './offer-show';
 import { MatPaginator } from '@angular/material/paginator'
 import { MatTableDataSource } from '@angular/material/table'
+import { MatDialog } from '@angular/material/dialog'
+import { DialogDeleteComponent } from './dialog-delete/dialog-delete.component'
 
 //const ELEMENT_DATA: IOfferShow[] = [];
+export interface BackEndMsg {
+  message: string;
+}
 
 @Component({
   selector: 'app-home',
@@ -34,14 +39,16 @@ export class HomeComponent implements OnInit {
   //public offersShow: IOfferShow[] = [];//Array<IOfferShow> - pierwotnie działające deklaracje bez MatTableDataSource
   //offersShow_O = new MatTableDataSource(this.offersShow);
   offersShow = new MatTableDataSource<IOfferShow>();  
-  displayedColumns: string[] = ['oferta_id','nazwa','wojewodztwoNazwa','miejscowoscNazwa','ulica','powierzchnia','cena','opis','zakup','usun'];
+  displayedColumns: string[] = ['oferta_id','nazwa','wojewodztwoNazwa','miejscowoscNazwa','ulica','powierzchnia','cena','opis','zakup','edycja','usun'];//
 
+  responseFromDelete: BackEndMsg = <any>[];
 
   constructor(
                 private _employeeService: EmployeeService, 
                 private _http: HttpService, 
                 private fb: FormBuilder, 
-                private _selectService: SelectService
+                private _selectService: SelectService,
+                public dialog: MatDialog
               ) { 
     this.searchOfferForm = fb.group({});
     this.paginator = <any>[];
@@ -160,8 +167,22 @@ export class HomeComponent implements OnInit {
     
   }
   
-  deleteRow(id: number) {
+  deleteRow(id: string) {
+    console.log(id);
+    let dialogRef = this.dialog.open(DialogDeleteComponent, {data: {nr: id}});
     
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+      if(result == 'true')
+      {
+        const formData : FormData = new FormData();
+        formData.append('id', id);
+        this._http.onSubmitDeleteOffer(formData).subscribe(
+            data => this.responseFromDelete = data,
+            error => this.errorMsg = error
+        );
+      }
+    });
   }
   
   //https://stackoverflow.com/questions/42066421/property-value-does-not-exist-on-type-eventtarget

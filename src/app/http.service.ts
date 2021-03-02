@@ -60,9 +60,13 @@ export class HttpService {
   onSubmitSaveAgent(fromData: FormData):Observable<any>{
     return this.http.post<any>('/api/api/save_agent.php', fromData)
   }
-  //onSubmitShowStats
+  
   onSubmitShowStats(fromData: FormData):Observable<any>{
     return this.http.post<any>('/api/api/show_agent_stat.php', fromData)
+  }
+  
+  onSubmitDeleteOffer(fromData: FormData):Observable<any>{
+    return this.http.post<any>('/api/api/delete_offer.php', fromData)
   }  
   
   errorHandler(error: HttpErrorResponse){

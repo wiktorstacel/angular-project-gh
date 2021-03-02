@@ -73,8 +73,9 @@ table {
 }
 
 .mat-column-button {
-  padding: 2px;
-  width:77px;
+  /*padding: 0px;
+  min-width:140px;*/
+ /* flex: 0 0 300px;*/
 }
 
 .input_filter {

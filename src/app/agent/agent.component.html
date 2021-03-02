@@ -146,7 +146,7 @@
     <ng-container matColumnDef="zwolnij">
       <th mat-header-cell *matHeaderCellDef> zwolnij </th>
       <td class="mat-column-button" mat-cell *matCellDef="let element">
-        <button mat-icon-button color="warn" ><mat-icon>call_split</mat-icon></button>
+        <button mat-icon-button color="warn" (click)="changeAgentStatus(element.agent_id, element.agentImie, element.agentNazwisko, 1)"><mat-icon>call_split</mat-icon></button>
       </td>
     </ng-container>
     
@@ -154,7 +154,7 @@
     <ng-container matColumnDef="przywroc">
       <th mat-header-cell *matHeaderCellDef> przywróć </th>
       <td class="mat-column-button" mat-cell *matCellDef="let element">
-        <button mat-icon-button color="primary" ><mat-icon>redo</mat-icon></button>
+        <button mat-icon-button color="primary" (click)="changeAgentStatus(element.agent_id, element.agentImie, element.agentNazwisko, 0)"><mat-icon>redo</mat-icon></button>
       </td>
     </ng-container>
     

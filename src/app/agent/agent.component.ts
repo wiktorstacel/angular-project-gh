@@ -6,6 +6,9 @@ import { IPositionAgent } from './position-agent';
 import { IAgentShow } from '../transaction/agent-show';
 import { IStatFormat } from './stat-format';
 import { MatTableDataSource } from '@angular/material/table'
+import { MatDialog } from '@angular/material/dialog'
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { DialogStatusComponent } from './dialog-status/dialog-status.component'
 
 export interface BackEndMsg {
   message: string;
@@ -24,6 +27,7 @@ export class AgentComponent implements OnInit {
   isDisabled = false;
   public errorMsg: any;
   responseFromSaveAgent: BackEndMsg = <any>[];
+  responseFromChangeAgentStatus: BackEndMsg = <any>[];
   public agentPositions: Array<IPositionAgent> = [];
   public activeAgents: Array<IAgentShow> = [];
   public noactiveAgents: Array<IAgentShow> = [];
@@ -40,7 +44,9 @@ export class AgentComponent implements OnInit {
   constructor(
                 private _http: HttpService,
                 private _selectService: SelectService, 
-                private fb: FormBuilder
+                private fb: FormBuilder,
+                public dialog: MatDialog,
+                private snackBar: MatSnackBar
               ) {
   this.insertAgentForm = fb.group({});
   this.statisticAgentForm = fb.group({});
@@ -136,9 +142,16 @@ export class AgentComponent implements OnInit {
   }
   
   activeAgentList() {
-    console.log(this.activeAgents);
-    this.displayedColumns = ['agent_id','agentImie','agentNazwisko','stanowiskoNazwa','zwolnij'];
-    this.Show = this.activeAgents;
+    const formData : FormData = new FormData();
+    formData.append('status', '1');
+    this._selectService.onCallAgents(formData).subscribe(
+        data => {this.activeAgents = data,console.log(this.activeAgents);},
+        error => this.errorMsg = error,
+        () => {//CALLBACK
+          this.displayedColumns = ['agent_id','agentImie','agentNazwisko','stanowiskoNazwa','zwolnij'];
+          this.Show = this.activeAgents;
+        }
+    );    
   }
   
   noactiveAgentList() {
@@ -152,6 +165,28 @@ export class AgentComponent implements OnInit {
           this.Show = this.noactiveAgents;
         }
     );
+  }
+  
+  //onSubmitChangeAgentStatus
+  changeAgentStatus(id: string, name: string, surname: string, status: number) {
+    let dialogRef = this.dialog.open(DialogStatusComponent, {data: {name: name, surname: surname}});   
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+      if(result == 'true')
+      {
+        const formData : FormData = new FormData();
+        formData.append('id', id);
+        this._http.onSubmitChangeAgentStatus(formData).subscribe(
+            data => this.responseFromChangeAgentStatus = data,
+            error => {this.errorMsg = error; console.log(error);},
+            () => {
+              if(status == 1){this.activeAgentList();}
+              else {this.noactiveAgentList();}
+              this.snackBar.open(this.responseFromChangeAgentStatus.message, 'Zamknij', {duration: 5000});
+            }
+        );
+      }
+    });
   }
   
   get name() {return this.insertAgentForm.get('name');}

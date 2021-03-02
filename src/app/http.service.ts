@@ -73,6 +73,10 @@ export class HttpService {
     return this.http.post<any>('/api/api/cancel_transaction.php', fromData)
   }
   
+  onSubmitChangeAgentStatus(fromData: FormData):Observable<any>{
+    return this.http.post<any>('/api/api/status_agent.php', fromData)
+  }
+  
   errorHandler(error: HttpErrorResponse){
     return throwError(error.message || "Server Error");
   }

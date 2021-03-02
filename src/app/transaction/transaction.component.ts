@@ -9,6 +9,7 @@ import { MatTableDataSource } from '@angular/material/table'
 import { MatDialog } from '@angular/material/dialog'
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { DialogCancelComponent } from './dialog-cancel/dialog-cancel.component'
+import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 
 export interface BackEndMsg {
   message: string;
@@ -33,13 +34,17 @@ export class TransactionComponent implements OnInit {
   public activeAgents: Array<IAgentShow> = [];
   transactionsShow = new MatTableDataSource<ITransactionShow>();  
   displayedColumns: string[] = ['tranzakcja_id','ofertaNazwa','ofertaUlica','agentNazwisko','transakcjaKlient','ofertaCena','transakcjaData','anuluj'];
+  public selectedId: any;
+  public finalId: number = 0;
 
   constructor(                
                 private _http: HttpService,
                 private _selectService: SelectService, 
                 private fb: FormBuilder,
                 public dialog: MatDialog,
-                private snackBar: MatSnackBar
+                private snackBar: MatSnackBar,
+                private router: Router, 
+                private route: ActivatedRoute
               ) {
     this.transactionForm = fb.group({});
     this.paginator = <any>[];
@@ -47,8 +52,15 @@ export class TransactionComponent implements OnInit {
 
   ngOnInit(): void {
     
+    this.route.paramMap.subscribe((params: ParamMap) => {
+      let id = params.get('id');
+      this.selectedId = id;
+      var y: number = +this.selectedId;
+      this.finalId = y;
+    });
+    
     this.transactionForm = this.fb.group({
-      id: [null, Validators.required],
+      id: [this.finalId, Validators.required],
       agent: [null, Validators.required],
       price: [{value: null, disabled: true}, Validators.required],
       client: [null,[
@@ -60,7 +72,11 @@ export class TransactionComponent implements OnInit {
     
     this._selectService.getActiveOffers().subscribe(
         data => {this.activeOffers = data, console.log(this.activeOffers)},
-        error => this.errorMsg = error
+        error => this.errorMsg = error,
+        () => {
+          this.onChangeFillForm(this.finalId);
+          window.scroll(0,0);
+        }
     );
     
     const formData : FormData = new FormData();

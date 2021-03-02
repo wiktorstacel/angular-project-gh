@@ -31,7 +31,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MAT_DATE_LOCALE } from '@angular/material/core';
 import { DialogDeleteComponent } from './home/dialog-delete/dialog-delete.component';
 import { DialogCancelComponent } from './transaction/dialog-cancel/dialog-cancel.component';
-import { DialogStatusComponent } from './agent/dialog-status/dialog-status.component'
+import { DialogStatusComponent } from './agent/dialog-status/dialog-status.component';
 
 
 @NgModule({
@@ -40,7 +40,7 @@ import { DialogStatusComponent } from './agent/dialog-status/dialog-status.compo
     routingComponents,
     DialogDeleteComponent,
     DialogCancelComponent,
-    DialogStatusComponent
+    DialogStatusComponent,
   ],
   entryComponents: [DialogDeleteComponent],
   imports: [

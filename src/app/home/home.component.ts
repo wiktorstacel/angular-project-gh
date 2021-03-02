@@ -11,6 +11,7 @@ import { MatTableDataSource } from '@angular/material/table'
 import { MatDialog } from '@angular/material/dialog'
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { DialogDeleteComponent } from './dialog-delete/dialog-delete.component'
+import { ActivatedRoute, Router, ParamMap } from '@angular/router';
 
 //const ELEMENT_DATA: IOfferShow[] = [];
 export interface BackEndMsg {
@@ -50,7 +51,9 @@ export class HomeComponent implements OnInit {
                 private fb: FormBuilder, 
                 private _selectService: SelectService,
                 public dialog: MatDialog,
-                private snackBar: MatSnackBar
+                private snackBar: MatSnackBar,
+                private route: ActivatedRoute, 
+                private router: Router
               ) { 
     this.searchOfferForm = fb.group({});
     this.paginator = <any>[];
@@ -189,6 +192,17 @@ export class HomeComponent implements OnInit {
         );
       }
     });
+  }
+  
+  goToEnterForm(id: number) {
+    let selectedId = id;
+    this.router.navigate(['/enter-offer',{id: selectedId}]);
+  }
+  
+  goToTransaction(id: number) {
+    //this.router.navigate(['/transaction', id])
+    let selectedId = id;
+    this.router.navigate(['/transaction',{id: selectedId}]);
   }
   
   //https://stackoverflow.com/questions/42066421/property-value-does-not-exist-on-type-eventtarget

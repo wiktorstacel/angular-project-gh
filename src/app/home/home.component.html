@@ -124,14 +124,14 @@
     <ng-container matColumnDef="zakup">
       <th mat-header-cell *matHeaderCellDef> zakup  </th>
       <td class="mat-column-button" mat-cell *matCellDef="let element">
-        <button mat-icon-button color="primary" [disabled]="!element.stan"><mat-icon>event_note</mat-icon></button>
+        <button mat-icon-button color="primary" [disabled]="!element.stan" (click)="goToTransaction(element.oferta_id)"><mat-icon>event_note</mat-icon></button>
       </td>
     </ng-container>
     
     <ng-container matColumnDef="edycja">
       <th mat-header-cell *matHeaderCellDef> edycja </th>
       <td class="mat-column-button" mat-cell *matCellDef="let element">
-        <button mat-icon-button [disabled]="!element.stan" ><mat-icon>launch</mat-icon></button>
+        <button mat-icon-button [disabled]="!element.stan" (click)="goToEnterForm(element.oferta_id)"><mat-icon>launch</mat-icon></button>
       </td>
     </ng-container>
         

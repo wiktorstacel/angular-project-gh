@@ -4,6 +4,7 @@ import { SelectService } from '../home/select.service';
 import { HttpService } from '../http.service';
 import { IOfferFormat } from './offer-format';
 //import { ElementRef, ViewChildren } from '@angular/core';
+import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 
 export interface BackEndMsg {
   message: string;
@@ -49,19 +50,38 @@ export class EnterOfferComponent implements OnInit {
                               oferta_id: number,
                               stan: number
                             }*/> = [];
+  
+  public selectedId: any;
+  public finalId: number = 0;
 
   constructor(
                 private fb: FormBuilder, 
                 private _selectService: SelectService,
-                private _http: HttpService
+                private _http: HttpService,
+                private router: Router, 
+                private route: ActivatedRoute
               ) {
     this.enterOfferForm = fb.group({});
   }
 
   ngOnInit(): void {
     
+    this.route.paramMap.subscribe((params: ParamMap) => {
+      let id = params.get('id');
+      this.selectedId = id;
+      if(id == null)
+      {
+        this.finalId = this.selectedId;
+      }
+      else
+      {
+        var y: number = +this.selectedId;
+        this.finalId = y;
+      }
+    });
+    
     this.enterOfferForm = this.fb.group({
-      id: [],
+      id: [this.finalId],
       wp0: [null,[
         Validators.required,
         Validators.minLength(5), Validators.maxLength(40),
@@ -106,7 +126,11 @@ export class EnterOfferComponent implements OnInit {
     
     this._selectService.getActiveOffers().subscribe(
         data => this.activeOffers = data,
-        error => this.errorMsg = error
+        error => this.errorMsg = error,
+        () => {
+          this.onChangeCallOffer(this.selectedId);
+          window.scroll(0,0);
+        }
     );
     
   }

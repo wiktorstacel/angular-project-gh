@@ -5,6 +5,7 @@ import { HomeComponent } from './home/home.component';
 import { EnterOfferComponent } from './enter-offer/enter-offer.component';
 import { TransactionComponent } from './transaction/transaction.component';
 import { AgentComponent } from './agent/agent.component';
+import { AboutComponent } from './about/about.component'
 import { ListComponent } from './list/list.component';
 import { BasicFormComponent } from './basic-form/basic-form.component';
 import { NestedFormComponent } from './nested-form/nested-form.component';
@@ -25,6 +26,7 @@ const routes: Routes = [
     { path: 'transaction', component: TransactionComponent },
     { path: 'list', component: ListComponent },
     { path: 'agent', component: AgentComponent },
+    { path: 'about', component: AboutComponent },
     { path: 'array', component: ArrayFormComponent },
     { path: 'departments', component: DepartmentListComponent },
     { 
@@ -51,6 +53,7 @@ export const routingComponents = [
   EnterOfferComponent,
   TransactionComponent,
   AgentComponent,
+  AboutComponent,
   ListComponent,
   BasicFormComponent,
   NestedFormComponent,
